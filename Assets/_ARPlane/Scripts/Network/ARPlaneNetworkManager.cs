@@ -68,7 +68,7 @@ namespace UniversoAumentado.ARPlane.Network
                 0.0f);
 
             // Todo: spawn where?
-            var plane = (GameObject)Instantiate(PlanePrefab, spawnPosition, spawnRotation);
+            var plane = Instantiate(spawnPrefabs[0], spawnPosition, spawnRotation);
             NetworkServer.Spawn(plane);
 
             return plane.GetComponent<Plane>();
