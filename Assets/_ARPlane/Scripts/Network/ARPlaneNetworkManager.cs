@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
+using UniversoAumentado.ARPlane.Events;
 
 namespace UniversoAumentado.ARPlane.Network
 {
@@ -31,6 +32,8 @@ namespace UniversoAumentado.ARPlane.Network
 
             // Call Add player and pass the message
             ClientScene.AddPlayer(conn, 0, msg);
+
+            GlobalEventDispatcher.Instance.DispatchEvent(new GameStateChangeEvent(Game.GameController.GameStates.SearchingForMarker));
         }
 
         // Server
