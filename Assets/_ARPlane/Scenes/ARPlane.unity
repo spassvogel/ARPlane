@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1760703bbd54c04488a8d10600262ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlanePrefab: {fileID: 1568414836858200, guid: c21ade353a8fefc4faa0f1054da90325,
+  m_PlanePrefab: {fileID: 1585201990951412, guid: d16dd8da7e4ccbe42b1b4a344a72ecbb,
     type: 2}
 --- !u!114 &39709750
 MonoBehaviour:
@@ -252,7 +252,7 @@ Transform:
   m_GameObject: {fileID: 580656966}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 1007399794}
   m_RootOrder: 0
@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 1007399798}
   - component: {fileID: 1007399795}
   m_Layer: 8
-  m_Name: Aircraft
+  m_Name: ARCraft
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -361,7 +361,7 @@ MonoBehaviour:
   maxSpeed: 3
   maxSpeedDistance: 100
   rotateSpeed: 0.1
-  aimingDistance: 1
+  reverse: 0
 --- !u!95 &1007399798
 Animator:
   serializedVersion: 3
@@ -422,7 +422,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1494848799}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.017, y: -0.095, z: 0.604}
+  m_LocalPosition: {x: -0.027, y: -0.095, z: 0.2451}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 1726465429}
@@ -607,6 +607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursor: {fileID: 1494848799}
+  arCraft: {fileID: 1007399795}
 --- !u!1 &1737617142
 GameObject:
   m_ObjectHideFlags: 0
