@@ -7,9 +7,9 @@ public class ARCraft : MonoBehaviour {
 
 	public Transform target;
 	public Transform cam;
-	public float maxSpeed = 3.0f;
-	public float maxSpeedDistance = 100;
-	public float rotateSpeed = .1f;
+	public float speed = 5f;
+	private float forwardSpeedBias = 10f;
+	private float rotateSpeed = .5f;
 
 	public bool reverse = false;
 
@@ -49,13 +49,19 @@ public class ARCraft : MonoBehaviour {
 		if(target == null) return;
 
 		float distance = Vector3.Distance(target.position, transform.position);
-		float speed = Mathf.Min(maxSpeed, distance / maxSpeedDistance * maxSpeed);
+		Vector3 direction = (target.position - transform.position).normalized;
+	
+		// Attract
+		body.AddForce(direction * distance * speed);
 
-		// Move towards target
-		transform.position = Vector3.MoveTowards(transform.position, target.position, speed);
+		// Attract more in Z-direction of target
+		Vector3 fromTarget = target.InverseTransformDirection(target.position - transform.position);
+		Vector3 force = target.TransformDirection(new Vector3(0, 0, fromTarget.z));
+		body.AddForce(force * forwardSpeedBias);
 	}
 
 	void Banking() {
+		// TODO: use rigidbody velocity
 		Vector3 velocity = transform.InverseTransformDirection(transform.position - previousPosition) * transform.localScale.x / Time.deltaTime;
 
 		// (weird) assumption/measurement: each dimension of velocity is max around 2, regardless of max speed
