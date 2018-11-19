@@ -47,15 +47,17 @@ namespace UniversoAumentado.ARPlane.Network
             }
             // Create player object with prefab
             var player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-
+            player.name = "Cursor for " + conn.connectionId;
+            
             // Add player object for connection
             NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
             var plane = SpawnPlane();
+            plane.gameObject.name = "Plane for " + conn.connectionId + " (" + spawnPrefabs[0].name + ")";
 
             plane.target = player.transform;
             plane.cam = CameraTransform;
 
-            Debug.Log("Adding player " + playerControllerId + " " + _curPlayer);
+            Debug.Log("Adding player " + playerControllerId + "  " + conn.connectionId);
         }
 
         private Plane SpawnPlane()
