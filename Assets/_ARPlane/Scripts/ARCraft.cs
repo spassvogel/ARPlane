@@ -7,19 +7,22 @@ public class ARCraft : MonoBehaviour {
 
 	public Transform target;
 	public Transform cam;
-	public float speed = 5f;
+	public float speed = 10f;
 	private float forwardSpeedBias = 10f;
 	private float rotateSpeed = .5f;
+	private float stability = 5f;
 
 	public bool reverse = false;
 
 	Rigidbody body;
 	Vector3 previousPosition;
+	Vector3 previousVelocity;
 
 	// Use this for initialization
 	void Start () {
 		body = GetComponent<Rigidbody>();
 		previousPosition = transform.position;
+		previousVelocity = body.velocity;
 	}
 	
 	// Update is called once per frame
@@ -27,21 +30,29 @@ public class ARCraft : MonoBehaviour {
 		LookAtTarget();
 		FollowTarget();
 		Banking();
+		Stabilize();
 
 		previousPosition = transform.position;
+		previousVelocity = body.velocity;
 	}
 
 	void LookAtTarget() {
+		// Find target position to look at
 		Vector3 aim = (target.position - cam.position).normalized * 10;
 		if(reverse) aim *= -1;
 		Vector3 lookAtTarget = target.position + aim;
+		Vector3 targetDelta = lookAtTarget - transform.position;
+ 
+		// Get the angle between transform.forward and target delta
+		float angleDiff = Vector3.Angle(transform.forward, targetDelta);
+ 
+		// Get its cross product, which is the axis of rotation to
+		// Get from one vector to the other
+		Vector3 cross = Vector3.Cross(transform.forward, targetDelta);
+ 
+		// Apply torque along that axis according to the magnitude of the angle.
+		body.AddTorque(cross * angleDiff * rotateSpeed);
 
-		lookAtTarget.y = transform.position.y;
-
-        // The step size is equal to speed times frame time.
-        float step = rotateSpeed * 10 * Time.deltaTime;
-		transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(lookAtTarget - transform.position), step);
-		
 		Debug.DrawLine(transform.position, lookAtTarget, Color.green);
 	}
 
@@ -61,14 +72,14 @@ public class ARCraft : MonoBehaviour {
 	}
 
 	void Banking() {
-		// TODO: use rigidbody velocity
-		Vector3 velocity = transform.InverseTransformDirection(transform.position - previousPosition) * transform.localScale.x / Time.deltaTime;
+		Vector3 velocity = transform.InverseTransformDirection(body.velocity);
+		Vector3 acceleration = transform.InverseTransformDirection(previousVelocity);
 
-		// (weird) assumption/measurement: each dimension of velocity is max around 2, regardless of max speed
-		float roll = -velocity.x * 45;
-		float pitch = -velocity.y * 45;
-		Vector3 currentRotation = transform.eulerAngles;
+		body.AddRelativeTorque(Vector3.forward * acceleration.x * stability * 0.1f);
+	}
 
-		transform.eulerAngles = new Vector3(pitch, currentRotation.y, roll);
+	void Stabilize() {
+		Vector3 torqueVector = Vector3.Cross(transform.up, Vector3.up);
+		body.AddTorque(torqueVector * stability);
 	}
 }
