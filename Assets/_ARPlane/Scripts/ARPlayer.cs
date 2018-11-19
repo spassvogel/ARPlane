@@ -5,6 +5,7 @@ using UnityEngine;
 public class ARPlayer : MonoBehaviour {
 
 	public GameObject cursor;
+	public ARCraft arCraft;
 	
 	Vector3 originalCursorPosition;
 	Vector3 previousPosition = Vector3.zero;
@@ -14,8 +15,9 @@ public class ARPlayer : MonoBehaviour {
 	void Start () {
 		if(cursor == null) {
 			Debug.LogError("No Player cursor set.");
-		} else {
-			originalCursorPosition = cursor.transform.position;
+		}
+		if(arCraft == null) {
+			Debug.LogError("No ARCraft set.");
 		}
 	}
 	
@@ -32,14 +34,6 @@ public class ARPlayer : MonoBehaviour {
 		Vector3 velocity = transform.InverseTransformDirection(transform.position - previousPosition) * transform.localScale.x / Time.deltaTime;
 		
 		// Reverse
-		if(!goingBackwards && velocity.z < -10) {
-			goingBackwards = true;
-			// TODO
-		}
-		// Going forward again
-		if(goingBackwards && velocity.z >= 10) {
-			goingBackwards = false;
-			// TODO
-		}
+		arCraft.reverse = velocity.z < 0;
 	}
 }

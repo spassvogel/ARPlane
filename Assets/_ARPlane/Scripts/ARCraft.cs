@@ -10,7 +10,8 @@ public class ARCraft : MonoBehaviour {
 	public float maxSpeed = 3.0f;
 	public float maxSpeedDistance = 100;
 	public float rotateSpeed = .1f;
-	public float aimingDistance = 1f;
+
+	public bool reverse = false;
 
 	Rigidbody body;
 	Vector3 previousPosition;
@@ -31,7 +32,10 @@ public class ARCraft : MonoBehaviour {
 	}
 
 	void LookAtTarget() {
-		Vector3 lookAtTarget = target.position + (target.position - cam.position).normalized * 100 * aimingDistance;
+		Vector3 aim = (target.position - cam.position).normalized * 10;
+		if(reverse) aim *= -1;
+		Vector3 lookAtTarget = target.position + aim;
+
 		lookAtTarget.y = transform.position.y;
 
         // The step size is equal to speed times frame time.
