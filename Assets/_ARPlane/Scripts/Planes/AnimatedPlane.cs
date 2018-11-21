@@ -7,22 +7,30 @@ namespace UniversoAumentado.ARPlane.Planes
     {
         public GameObject propellor;
         public GameObject propellorBlur;
+        public Rigidbody body;
 
-        public bool engineOn;
+        [HideInInspector]
+        [Range(0, 1)]
+        public float speed;
+        [Tooltip("This value or above represents the speed at which the propellors move at max power")]
+        public float maxMagnitude = 100;
+
+        private float baseRotateModifier = 1000;
 
         void Update()
         {
-            if (engineOn)
+            if(body != null)
             {
-                propellor.SetActive(false);
-                propellorBlur.SetActive(true);
-                propellorBlur.transform.Rotate(1000 * Time.deltaTime, 0, 0);
+                // Calculate 'speed' based on rigidbody magnitude. A value between 0 and 1
+                speed = Mathf.Min(body.velocity.magnitude / maxMagnitude, 1);
             }
-            else
-            {
-                propellor.SetActive(true);
-                propellorBlur.SetActive(false);
-            }
+
+            propellor.transform.Rotate(baseRotateModifier * speed * Time.deltaTime, 0, 0);
+            propellorBlur.transform.Rotate(baseRotateModifier * speed * Time.deltaTime, 0, 0);
+
+            bool showBlur = (speed > .4);
+            propellor.SetActive(!showBlur);
+            propellorBlur.SetActive(showBlur);
         }
     }
 }

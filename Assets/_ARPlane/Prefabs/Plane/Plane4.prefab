@@ -261,7 +261,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   propellor: {fileID: 100002}
   propellorBlur: {fileID: 100000}
-  engineOn: 0
+  body: {fileID: 0}
+  speed: 0
+  maxMagnitude: 1000
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

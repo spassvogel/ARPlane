@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//#define SHOW_SPEED  
+
 [RequireComponent(typeof(Rigidbody))]
 public class ARCraft : MonoBehaviour {
 
@@ -23,7 +25,9 @@ public class ARCraft : MonoBehaviour {
 		body = GetComponent<Rigidbody>();
 		previousPosition = transform.position;
 		previousVelocity = body.velocity;
-	}
+
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -82,4 +86,13 @@ public class ARCraft : MonoBehaviour {
 		Vector3 torqueVector = Vector3.Cross(transform.up, Vector3.up);
 		body.AddTorque(torqueVector * stability);
 	}
+
+#if SHOW_SPEED
+    private void OnGUI()
+    {
+        GUIStyle guiStyle = new GUIStyle() { fontSize = 140 };
+        guiStyle.normal.textColor = Color.red;
+        GUI.Label(new Rect(100, 100, 100, 20), "Speed: " + Mathf.Round(body.velocity.magnitude), guiStyle);
+    }
+#endif
 }
