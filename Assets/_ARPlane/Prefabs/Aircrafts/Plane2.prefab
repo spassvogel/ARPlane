@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
   - component: {fileID: 11400000}
+  - component: {fileID: 114938134813889144}
   m_Layer: 0
   m_Name: Plane2
   m_TagString: Untagged
@@ -275,3 +276,35 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
   m_IsPrefabAsset: 1
+--- !u!114 &114938134813889144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 245
+    i1: 155
+    i2: 226
+    i3: 88
+    i4: 250
+    i5: 12
+    i6: 27
+    i7: 196
+    i8: 9
+    i9: 232
+    i10: 168
+    i11: 47
+    i12: 87
+    i13: 125
+    i14: 234
+    i15: 75
+  m_ServerOnly: 1
+  m_LocalPlayerAuthority: 0

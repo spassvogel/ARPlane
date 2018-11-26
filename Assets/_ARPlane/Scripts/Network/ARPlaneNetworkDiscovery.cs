@@ -24,6 +24,7 @@ namespace UniversoAumentado.ARPlane.Network
 
         public override void OnReceivedBroadcast(string fromAddress, string data)
         {
+            Debug.Log("BROADCAST RECEIVED " + fromAddress);
             if (hasRecievedBroadcastAtLeastOnce)
             {
                 return;

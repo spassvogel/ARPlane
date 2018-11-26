@@ -16,9 +16,9 @@ namespace UniversoAumentado.ARPlane.Network
         void Start()
         {
 #if UNITY_EDITOR
-            this.StartHost();
+            this.StartServer();
 #else
-        this.GetComponent<NetworkManagerHUD>().enabled = false;
+            // this.GetComponent<NetworkManagerHUD>().enabled = false;
 #endif
         }
 
@@ -26,12 +26,15 @@ namespace UniversoAumentado.ARPlane.Network
         //Called on client when connect
         public override void OnClientConnect(NetworkConnection conn)
         {
+            base.OnClientConnect(conn);
+            GetComponent<ARPlaneNetworkDiscovery>().StopBroadcast();
+
             Debug.Log("On client connect!!!!!!00");
             // Create message to set the player
-            IntegerMessage msg = new IntegerMessage(_curPlayer);
+            // IntegerMessage msg = new IntegerMessage(_curPlayer);
 
             // Call Add player and pass the message
-            ClientScene.AddPlayer(conn, 0, msg);
+            // ClientScene.AddPlayer(conn, 0, msg);
 
             GlobalEventDispatcher.Instance.DispatchEvent(new GameStateChangeEvent(Game.GameController.GameStates.SearchingForMarker));
         }
@@ -45,22 +48,23 @@ namespace UniversoAumentado.ARPlane.Network
                 var stream = extraMessageReader.ReadMessage<IntegerMessage>();
                 _curPlayer = stream.value;
             }
-            // Create player object with prefab
-            var player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-            player.name = "Cursor for " + conn.connectionId;
+            // Create player object with prefab (this is the cursor!)
+            ARPlayer player = (Instantiate(playerPrefab, Vector3.zero, Quaternion.identity)).GetComponent<ARPlayer>();
+            player.name = "Player " + conn.connectionId;
             
             // Add player object for connection
-            NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
-            var plane = SpawnPlane();
-            plane.gameObject.name = "Plane for " + conn.connectionId + " (" + spawnPrefabs[0].name + ")";
+            NetworkServer.AddPlayerForConnection(conn, player.gameObject, playerControllerId);
+            var aircraft = SpawnAircraft();
+            player.arCraft = aircraft;
+            aircraft.gameObject.name = "Aircraft for Player " + conn.connectionId + " (" + spawnPrefabs[0].name + ")";
 
-            plane.target = player.transform;
-            plane.cam = CameraTransform;
+            aircraft.target = player.cursor.transform;
+            aircraft.cam = player.transform;
 
             Debug.Log("Adding player " + playerControllerId + "  " + conn.connectionId);
         }
 
-        private Plane SpawnPlane()
+        private ARCraft SpawnAircraft()
         {
             var spawnPosition = new Vector3(
                     Random.Range(-8.0f, 8.0f),
@@ -76,7 +80,7 @@ namespace UniversoAumentado.ARPlane.Network
             var plane = Instantiate(spawnPrefabs[0], spawnPosition, spawnRotation);
             NetworkServer.Spawn(plane);
 
-            return plane.GetComponent<Plane>();
+            return plane.GetComponent<ARCraft>();
         }
 
         public override void OnServerConnect(NetworkConnection nc)

@@ -1007,7 +1007,7 @@ MonoBehaviour:
   m_OfflineScene: 
   m_OnlineScene: 
   m_SpawnPrefabs:
-  - {fileID: 100000, guid: bd16a121ccdf0674daacc3277d88c3c0, type: 2}
+  - {fileID: 100000, guid: f59be258fa0c1bc409e8a82f577dea4b, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -1063,7 +1063,7 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
-  PlanePrefab: {fileID: 100000, guid: bd16a121ccdf0674daacc3277d88c3c0, type: 2}
+  PlanePrefab: {fileID: 100000, guid: f59be258fa0c1bc409e8a82f577dea4b, type: 2}
   CameraTransform: {fileID: 534669905}
 --- !u!1 &2004217631
 GameObject:

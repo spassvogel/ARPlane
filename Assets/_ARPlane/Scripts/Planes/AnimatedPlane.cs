@@ -7,7 +7,7 @@ namespace UniversoAumentado.ARPlane.Planes
     {
         public GameObject propellor;
         public GameObject propellorBlur;
-        public Rigidbody body;
+        Rigidbody body;
 
         [HideInInspector]
         [Range(0, 1)]
@@ -16,6 +16,10 @@ namespace UniversoAumentado.ARPlane.Planes
         public float maxMagnitude = 100;
 
         private float baseRotateModifier = 1000;
+
+        void Start() {
+            body = GetComponentInParent<Rigidbody>();
+        }
 
         void Update()
         {
