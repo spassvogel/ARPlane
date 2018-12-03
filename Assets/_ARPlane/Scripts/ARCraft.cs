@@ -1,37 +1,37 @@
-﻿using System.Collections;
+﻿//#define DEBUG
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-//#define SHOW_SPEED  
 
 [RequireComponent(typeof(Rigidbody))]
 public class ARCraft : MonoBehaviour {
 
 	public Transform target;
 	public Transform cam;
-	private float maxForce = 150f;
+	private float maxForce = 200f;
 	private float maxForceDistance = 0.2f;
-	private float forwardForceBias = 10f;
-	private float maxUpwardForce = 500f;
-	private float maxDownwardForce = 500f;
+	private float forwardForceBias = 5f;
 	private float rotateSpeed = .5f;
-	private float stability = 100f;
+	private float stability = 30f;
+	private float banking = 30f;
 	private float lift = 500f;
-	private float artificialGravity = 200f;
-	private float expectedMaxSpeed = 100f;
+	private float noseDownForce = 30f;
+	private float artificialGravity = 250f;
+	private float expectedMaxSpeed = 30f;
 
+	private Vector3 previousVelocity;
 	private float currentLift = 0f;
 
 	public bool reverse = false;
 
+	private float debugValue = 0f;
+
 	Rigidbody body;
-	Vector3 previousPosition;
-	Vector3 previousVelocity;
 
 	// Use this for initialization
 	void Start () {
 		body = GetComponent<Rigidbody>();
-		previousPosition = transform.position;
 		previousVelocity = body.velocity;
     }
 	
@@ -45,7 +45,6 @@ public class ARCraft : MonoBehaviour {
 		Stabilize();
 		Gravity();
 
-		previousPosition = transform.position;
 		previousVelocity = body.velocity;
 	}
 
@@ -93,13 +92,16 @@ public class ARCraft : MonoBehaviour {
 		// Attract more in Z-direction of target
 		Vector3 fromTarget = target.InverseTransformDirection(target.position - transform.position);
 		Vector3 force = target.TransformDirection(new Vector3(0, 0, fromTarget.z));
+		force.y = 0; // no force bias in y-direction
 		body.AddForce(force * forwardForceBias);
 	}
 
 	void Banking() {
 		Vector3 velocity = transform.InverseTransformDirection(body.velocity);
+		Vector3 acceleration = velocity - transform.InverseTransformDirection(previousVelocity);
 
-		body.AddRelativeTorque(Vector3.forward * (velocity.x/expectedMaxSpeed) * stability);
+		debugValue = acceleration.x;
+		body.AddRelativeTorque(Vector3.forward * (-acceleration.x) * banking);
 	}
 
 	void Stabilize() {
@@ -118,15 +120,15 @@ public class ARCraft : MonoBehaviour {
 		
 		// Continuous nose down
 		Vector3 noseDown = Vector3.Cross(transform.forward, Vector3.down);
-		body.AddTorque(noseDown * 50f);
+		body.AddTorque(noseDown * noseDownForce);
 	}
 
-#if SHOW_SPEED
+#if DEBUG
     private void OnGUI()
     {
         GUIStyle guiStyle = new GUIStyle() { fontSize = 140 };
         guiStyle.normal.textColor = Color.red;
-        GUI.Label(new Rect(100, 100, 100, 20), "Speed: " + Mathf.Round(body.velocity.magnitude), guiStyle);
+        GUI.Label(new Rect(100, 100, 100, 20), "Debug: " + Mathf.Round(debugValue), guiStyle);
     }
 #endif
 }

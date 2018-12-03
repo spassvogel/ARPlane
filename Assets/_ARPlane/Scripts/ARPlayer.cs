@@ -9,7 +9,6 @@ public class ARPlayer : MonoBehaviour {
 	
 	Vector3 originalCursorPosition;
 	Vector3 previousPosition = Vector3.zero;
-	bool goingBackwards = false;
 
 	// Use this for initialization
 	void Start () {
