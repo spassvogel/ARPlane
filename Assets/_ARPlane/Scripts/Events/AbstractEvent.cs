@@ -1,4 +1,4 @@
-﻿namespace UniversoAumentado.ARPlane.Events {
+﻿namespace UniversoAumentado.ARCraft.Events {
 
     public abstract class AbstractEvent {
 

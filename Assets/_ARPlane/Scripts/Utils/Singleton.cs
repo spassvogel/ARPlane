@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UniversoAumentado.ARPlane.Utils { 
+namespace UniversoAumentado.ARCraft.Utils { 
 
 /// <summary>
 /// Inherit from this base class to create a singleton.

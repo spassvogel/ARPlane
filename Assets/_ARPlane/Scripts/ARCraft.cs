@@ -1,5 +1,7 @@
 ﻿//#define DEBUG
 
+namespace UniversoAumentado.ARCraft {
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -131,4 +133,6 @@ public class ARCraft : MonoBehaviour {
         GUI.Label(new Rect(100, 100, 100, 20), "Debug: " + Mathf.Round(debugValue), guiStyle);
     }
 #endif
+}
+
 }

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UniversoAumentado.ARPlane.Game;
+using UniversoAumentado.ARCraft.Game;
 
-namespace UniversoAumentado.ARPlane.Events {
+namespace UniversoAumentado.ARCraft.Events {
 
     public class GameStateChangeEvent : AbstractEvent
     {

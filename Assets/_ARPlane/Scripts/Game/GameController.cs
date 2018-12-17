@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UniversoAumentado.ARPlane.Events;
+using UniversoAumentado.ARCraft.Events;
 
-namespace UniversoAumentado.ARPlane.Game
+namespace UniversoAumentado.ARCraft.Game
 {
     public class GameController : MonoBehaviour { 
 

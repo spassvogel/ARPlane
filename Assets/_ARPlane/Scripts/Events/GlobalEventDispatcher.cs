@@ -1,4 +1,4 @@
-﻿namespace UniversoAumentado.ARPlane.Events
+﻿namespace UniversoAumentado.ARCraft.Events
 {
     /// <summary>
     /// Singleton instance for the EventDispatcher - currently this solution is an anti-pattern that can be solved with for example Dependency Injection

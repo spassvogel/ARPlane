@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace UniversoAumentado.ARPlane.Planes
+namespace UniversoAumentado.ARCraft.Planes
 {
     public class AnimatedPlane : MonoBehaviour
     {

@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UniversoAumentado.ARPlane.Events;
+using UniversoAumentado.ARCraft.Events;
 using System;
-using UniversoAumentado.ARPlane.Game;
+using UniversoAumentado.ARCraft.Game;
 
-namespace UniversoAumentado.ARPlane.UI
+namespace UniversoAumentado.ARCraft.UI
 {
     public class UIController : MonoBehaviour
     {

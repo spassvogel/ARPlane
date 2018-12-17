@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-namespace UniversoAumentado.ARPlane.Network
+namespace UniversoAumentado.ARCraft.Network
 {
     public class ARPlaneNetworkDiscovery : NetworkDiscovery
     {

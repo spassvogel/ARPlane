@@ -2,9 +2,9 @@
 using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
-using UniversoAumentado.ARPlane.Events;
+using UniversoAumentado.ARCraft.Events;
 
-namespace UniversoAumentado.ARPlane.Network
+namespace UniversoAumentado.ARCraft.Network
 {
     public class ARPlaneNetworkManager : NetworkManager
     {

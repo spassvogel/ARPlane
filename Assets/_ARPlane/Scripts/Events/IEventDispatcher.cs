@@ -1,4 +1,4 @@
-﻿namespace UniversoAumentado.ARPlane.Events
+﻿namespace UniversoAumentado.ARCraft.Events
 {
     /// <summary>
     /// Delegate called when an event is dispatched by the EventDispatcher

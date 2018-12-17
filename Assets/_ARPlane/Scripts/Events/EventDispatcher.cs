@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 
-namespace UniversoAumentado.ARPlane.Events
+namespace UniversoAumentado.ARCraft.Events
 {
 
     /// <summary>
