@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace UniversoAumentado.ARCraft {
+
 public class ARPlayer : MonoBehaviour {
 
 	public GameObject cursor;
@@ -35,4 +37,6 @@ public class ARPlayer : MonoBehaviour {
 		// Reverse
 		arCraft.reverse = velocity.z < 0;
 	}
+}
+
 }

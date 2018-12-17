@@ -66,7 +66,6 @@
 
 			if (cameraIndex >= 0) {
 				DeviceName = WebCamTexture.devices [cameraIndex].name;
-				//webCamDevice = WebCamTexture.devices [cameraIndex];
 			}
 		}
 
@@ -82,19 +81,19 @@
 
 			int count = 0;
 			foreach (MarkerObject markerObject in markers) {
-				List<int> foundedMarkers = new List<int>();
+				List<int> foundMarkers = new List<int>();
 				for (int i=0; i<markerIds.Count; i++) {
 					if (markerIds[i] == markerObject.markerId) {
-						foundedMarkers.Add(i);
+						foundMarkers.Add(i);
 						count++;
 					}
 				}
 
-				ProcessMarkesWithSameId(markerObject, gameObjects[markerObject.markerId], foundedMarkers);
+				ProcessMarkersWithSameId(markerObject, gameObjects[markerObject.markerId], foundMarkers);
 			}
 		}
 
-		private void ProcessMarkesWithSameId(MarkerObject markerObject, List<MarkerOnScene> gameObjects, List<int> foundedMarkers) {
+		private void ProcessMarkersWithSameId(MarkerObject markerObject, List<MarkerOnScene> gameObjects, List<int> foundedMarkers) {
 			int index = 0;
 		
 			index = gameObjects.Count - 1;

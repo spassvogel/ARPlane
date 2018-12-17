@@ -526,15 +526,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1338243986}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb2d233565a224e7fb9f7a98cea9e3a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 64ad677c2095d3b4ea327252d1f931ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Surface: {fileID: 770840974}
-  markers:
-  - markerId: 5
-    markerPrefab: {fileID: 192324, guid: 2cd155db0d1184f53b38a39be9667f6f, type: 2}
-  - markerId: 23
-    markerPrefab: {fileID: 127862, guid: 0677871dc074142beb6deba55e316d31, type: 2}
 --- !u!4 &1338243988
 Transform:
   m_ObjectHideFlags: 0
