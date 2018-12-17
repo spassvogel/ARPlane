@@ -82,7 +82,7 @@ namespace PaperPlaneTools.AR
 		/// This method scans source device params (flip, rotation, front-camera status etc.) and
 		/// prepares TextureConversionParameters that will compensate all that stuff for OpenCV
 		/// </summary>
-		private void ReadTextureConversionParameters()
+		protected virtual void ReadTextureConversionParameters()
 		{
 			Unity.TextureConversionParams parameters = new Unity.TextureConversionParams();
 

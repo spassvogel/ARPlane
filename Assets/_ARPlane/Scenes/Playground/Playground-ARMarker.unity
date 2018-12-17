@@ -530,7 +530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Surface: {fileID: 770840974}
-  markers: []
+  arGameObject: {fileID: 373222761}
 --- !u!4 &1338243988
 Transform:
   m_ObjectHideFlags: 0
