@@ -15,7 +15,7 @@ namespace UniversoAumentado.ARCraft.Network
 
         void Start()
         {
-#if UNITY_EDITOR
+#if false
             this.StartServer();
 #else
             // this.GetComponent<NetworkManagerHUD>().enabled = false;

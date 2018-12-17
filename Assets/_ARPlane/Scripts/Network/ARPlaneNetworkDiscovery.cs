@@ -12,7 +12,7 @@ namespace UniversoAumentado.ARCraft.Network
         {
             Initialize();
 
-#if UNITY_EDITOR
+#if false
             StartAsServer();
             showGUI = true;
             Debug.Log("Started as server");
