@@ -9,8 +9,9 @@
 	using UnityEngine.UI;
     using PaperPlaneTools.AR;
 
-    public class ARCamera : WebCamera {
-		public GameObject arGameObject;
+    public class MarkerTracker : WebCamera {
+		public Transform offsetObject;
+		public Transform playerObject;
 
 		/// <summary>
 		/// The marker detector
@@ -18,7 +19,8 @@
 		private MarkerDetector markerDetector;
 
 		void Start () {
-			Debug.Assert(arGameObject != null, "ARCamera: No ARGameObject set.");
+			Debug.Assert(offsetObject != null, "ARCamera: No offsetObject set.");
+			Debug.Assert(playerObject != null, "ARCamera: No playerObject set.");
 			markerDetector = new MarkerDetector ();
 		}
 
@@ -62,17 +64,42 @@
 			}
 
 			Matrix4x4 transformMatrix = markerDetector.TransfromMatrixForIndex(0);
-			PositionObject(arGameObject, transformMatrix);
+			PositionPlayer(transformMatrix);
 		}
 
-		private void PositionObject(GameObject gameObject, Matrix4x4 transformMatrix) {
+		private void PositionPlayer(Matrix4x4 transformMatrix) {
 			Matrix4x4 matrixY = Matrix4x4.TRS (Vector3.zero, Quaternion.identity, new Vector3 (1, -1, 1));
 			Matrix4x4 matrixZ = Matrix4x4.TRS (Vector3.zero, Quaternion.identity, new Vector3 (1, 1, -1));
 			Matrix4x4 matrix = matrixY * transformMatrix * matrixZ;
 
-			gameObject.transform.localPosition = MatrixHelper.GetPosition (matrix);
-			gameObject.transform.localRotation = MatrixHelper.GetQuaternion (matrix);
-			gameObject.transform.localScale = MatrixHelper.GetScale (matrix);
+			Vector3 markerPosition = MatrixHelper.GetPosition(matrix);
+			Quaternion markerRotation = MatrixHelper.GetQuaternion(matrix);
+
+			// First fix rotation error because it can mess up the position
+
+			Quaternion playerRotation = playerObject.transform.rotation;
+			// The player rotation should be the inverse of the marker rotation.
+			Quaternion targetRotation = Quaternion.Inverse(markerRotation);
+			Quaternion errorRotation = targetRotation * Quaternion.Inverse(playerRotation);
+			
+			Vector3 mRotation = markerRotation.eulerAngles;
+			Vector3 tRotation = targetRotation.eulerAngles;
+			Vector3 eRotation = errorRotation.eulerAngles;
+			Vector3 fRotation = (errorRotation * playerRotation).eulerAngles;
+
+			// Rotate offset to counter error
+			offsetObject.transform.rotation = errorRotation * offsetObject.transform.rotation;
+
+			// Now fix position error
+
+			Vector3 playerPosition = playerObject.position;
+			// The marker is placed at some point from the origin. We want the marker to be the origin, so player should be (0,0,0) - markerPosition.
+			Vector3 targetPosition = Vector3.zero - markerPosition;
+			Vector3 errorPosition = targetPosition - playerPosition;
+
+			// Move offset to counter error
+			offsetObject.transform.position += errorPosition;
+
 		}
 	}
 }

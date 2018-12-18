@@ -45,7 +45,6 @@
 			
 			// Detect markers
 			CvAruco.DetectMarkers (grayMat, dictionary, out corners, out ids, detectorParameters, out rejectedImgPoints);
-			Debug.Log(ids.Length);
 
             CvAruco.DrawDetectedMarkers(mat, corners, ids);
 
