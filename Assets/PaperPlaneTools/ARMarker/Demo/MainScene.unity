@@ -530,7 +530,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Surface: {fileID: 770840974}
-  markers: []
+  markers:
+  - markerId: 2
+    markerPrefab: {fileID: 100000, guid: bd16a121ccdf0674daacc3277d88c3c0, type: 2}
 --- !u!4 &1338243988
 Transform:
   m_ObjectHideFlags: 0
