@@ -12,6 +12,9 @@ public class LightEstimation : MonoBehaviour
 
 	public Color? colorCorrection { get; private set; }
 
+	//[SerializeField] private ARCameraManager arCameraManager;
+    // arCameraManager.frameReceived
+
 	void Awake ()
 	{
 		m_Light = GetComponent<Light>();
