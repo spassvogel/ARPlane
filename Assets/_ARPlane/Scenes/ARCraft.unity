@@ -1078,9 +1078,11 @@ GameObject:
   - component: {fileID: 1298900577}
   - component: {fileID: 1298900576}
   - component: {fileID: 1298900578}
+  - component: {fileID: 1298900579}
+  - component: {fileID: 1298900580}
   m_Layer: 0
   m_Name: AR Session Origin
-  m_TagString: Untagged
+  m_TagString: ARReferenceManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1128,6 +1130,38 @@ MonoBehaviour:
   m_PlanePrefab: {fileID: 1757980069794834, guid: 5fdb4afa6a76c6c4da7c9974affd883e,
     type: 3}
   m_DetectionMode: -1
+--- !u!114 &1298900579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298900575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dea56a9eaadd1c439095de4f9a371cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedLibrary: {fileID: 11400000, guid: 2792d6bfff2b4f540b881142ccef826a,
+    type: 2}
+  m_MaxNumberOfMovingImages: 1
+  m_TrackedImagePrefab: {fileID: 3152295617960990683, guid: 2665544a0526bf44d9276022addb9156,
+    type: 3}
+--- !u!114 &1298900580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298900575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b715e8e0ce87064681e3ed41f82bacf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  realWorldPositions:
+  - markerName: poster
+    position: {x: 0, y: 0, z: 0}
 --- !u!1 &1434617027
 GameObject:
   m_ObjectHideFlags: 0
