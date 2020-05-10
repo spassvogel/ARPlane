@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/_ARPlane/Scenes/Playground/Playground-Networking.unity
     guid: 033d35a0a9ced504d858f1331bfdab5a
   - enabled: 1
+    path: Assets/_ARPlane/Scenes/Playground/Playground-DarkRift.unity
+    guid: 766ff5b0b3d074b7eabac7ef615405dc
+  - enabled: 1
     path: Assets/_ARPlane/Scenes/ARCraft.unity
     guid: 5717a413b7cf34e4dbe65e59f150d050
   - enabled: 0
