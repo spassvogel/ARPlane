@@ -6,6 +6,7 @@ public class DebugMovement : MonoBehaviour {
 
 	public float moveSpeed = 3;
 	public float lookSpeed = 3;
+	public bool logPosition = false;
 
 	Vector3 rotation = Vector3.zero;
 
@@ -14,13 +15,17 @@ public class DebugMovement : MonoBehaviour {
 		
 	}
 
-#if UNITY_EDITOR
 	// Update is called once per frame
 	void Update () {
-		Move();
-		Look();
+		#if UNITY_EDITOR
+			Move();
+			Look();
+		#endif
+		if (logPosition) {
+			Debug.Log($"Camera: {transform.position}");
+		}
 	}
-#endif
+
 
 	void Move() {
         var y = Input.GetKey(KeyCode.Space) ? Time.deltaTime * moveSpeed : 0;
