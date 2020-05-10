@@ -11,16 +11,16 @@ public class ARCraft : MonoBehaviour {
 
 	public Transform target;
 	public Transform cam;
-	private float maxForce = 200f;
-	private float maxForceDistance = 0.2f;
-	private float forwardForceBias = 5f;
-	private float rotateSpeed = .5f;
-	private float stability = 30f;
-	private float banking = 30f;
-	private float lift = 500f;
-	private float noseDownForce = 30f;
-	private float artificialGravity = 250f;
-	private float expectedMaxSpeed = 30f;
+	public float maxForce = 200f;
+	public float maxForceDistance = 0.2f;
+	public float forwardForceBias = 5f;
+	public float rotateSpeed = .5f;
+	public float stability = 30f;
+	public float banking = 30f;
+	public float lift = 500f;
+	public float noseDownForce = 30f;
+	public float artificialGravity = 250f;
+	public float expectedMaxSpeed = 30f;
 
 	private Vector3 previousVelocity;
 	private float currentLift = 0f;

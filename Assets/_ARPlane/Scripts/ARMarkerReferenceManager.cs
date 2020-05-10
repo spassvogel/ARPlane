@@ -1,39 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Timeline;
 using UnityEngine.XR.ARFoundation;
-
-[System.Serializable]
-public class ARReferencePosition {
-    public string markerName;
-    public Vector3 position;
-}
+using UnityEngine.XR.ARSubsystems;
 
 public class ARMarkerReferenceManager : MonoBehaviour {
-    public ARReferencePosition[] realWorldPositions;
-    Dictionary<string, Vector3> realworldPositionsIndex = new Dictionary<string, Vector3>();
+    public ARTrackedImageManager trackedImageManager;
+    public Transform markers;
 
-    public void Start() {
+    ARSessionOrigin arSessionOrigin;
+    Dictionary<string, Transform> markerIndex = new Dictionary<string, Transform>();
+
+    public void Awake() {
         // Index positions for quick lookup
-        foreach(ARReferencePosition reference in realWorldPositions) {
-            realworldPositionsIndex[reference.markerName] = reference.position;
+        foreach (Transform marker in markers) {
+            markerIndex[marker.name] = marker;
         }
+        arSessionOrigin = GetComponent<ARSessionOrigin>();
+        trackedImageManager.trackedImagesChanged += OnTrackedImagesChanged;
     }
 
-    public void CalibratePosition(ARReferenceMarker marker) {
-        string markerName = marker.GetName();
-        if(!realworldPositionsIndex.ContainsKey(markerName)) {
-            Debug.LogError($"Marker '{markerName}' not found as reference.");
-            return;
+    void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs) {
+        foreach(ARTrackedImage trackedImage in eventArgs.updated) {
+            if (trackedImage.trackingState < TrackingState.Tracking) {
+                continue;
+            }
+            string name = trackedImage.referenceImage.name;
+            if(!markerIndex.ContainsKey(name)) {
+                Debug.Log($"Found marker '{name}' but it was not found in the marker index.");
+                continue;
+            }
+            Transform marker = markers.Find(name);
+            if(marker == null) {
+                Debug.Log($"Found marker '{name}' but it was not found in the Markers Transform.");
+                continue;
+            }
+            Debug.Log($"SessionOrigin: {arSessionOrigin.transform.position}, found marker '{name}' at {trackedImage.transform.position} (real world position {marker.position}).");
+            arSessionOrigin.MakeContentAppearAt(marker, trackedImage.transform.position, trackedImage.transform.localRotation);
         }
-
-        // We know the position where we found the marker and we know where the marker should be located, so now we fix that difference
-        Vector3 realWorldPosition = realworldPositionsIndex[markerName];
-        Vector3 currentPosition = marker.transform.position;
-        Vector3 difference = currentPosition - realWorldPosition;
-
-        transform.Translate(difference);
-
-        Debug.Log($"Found marker at {currentPosition}, should be {realWorldPosition}, changed to {marker.transform.position}. Session origin is now at {transform.position}.");
     }
 }
