@@ -191,10 +191,6 @@ GameObject:
   - component: {fileID: 1007399794}
   - component: {fileID: 213374384}
   - component: {fileID: 213374383}
-<<<<<<< HEAD:Assets/_ARPlane/Scenes/ARCraft.unity
-=======
-  - component: {fileID: 1007399795}
->>>>>>> feat: added DarkRift:Assets/_ARPlane/Scenes/Playground/Playground-DarkRift.unity
   - component: {fileID: 213374381}
   m_Layer: 8
   m_Name: ARCraft
@@ -212,7 +208,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 213374380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-<<<<<<< HEAD:Assets/_ARPlane/Scenes/ARCraft.unity
   m_Script: {fileID: 11500000, guid: 80d8cf0c48fc1c0478b2c09f9b846e69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -231,12 +226,6 @@ MonoBehaviour:
   artificialGravity: 250
   expectedMaxSpeed: 200
   reverse: 0
-=======
-  m_Script: {fileID: 11500000, guid: 2f4d7c3d42424410eb693ba4b3371373, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  client: {fileID: 1434617028}
->>>>>>> feat: added DarkRift:Assets/_ARPlane/Scenes/Playground/Playground-DarkRift.unity
 --- !u!95 &213374383
 Animator:
   serializedVersion: 3
@@ -1889,7 +1878,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 97.72928, y: 0, z: 100.30176, w: 0}
   m_textInfo:
     textComponent: {fileID: 1334039274}
     characterCount: 1
@@ -1952,7 +1941,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2b44c570cb28644b8762e0b13e7c23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD:Assets/_ARPlane/Scenes/ARCraft.unity
   m_NetworkPort: 7777
   m_ServerBindToIP: 0
   m_ServerBindAddress: 
@@ -2030,35 +2018,6 @@ MonoBehaviour:
   CameraTransform: {fileID: 0}
 --- !u!114 &1434617029
 MonoBehaviour:
-=======
-  address: 192.168.1.100
-  port: 4296
-  noDelay: 0
-  ipVersion: 0
-  autoConnect: 1
-  invokeFromDispatcher: 1
-  sniffData: 0
-  objectCacheSettings:
-    maxWriters: 2
-    maxReaders: 2
-    maxMessages: 4
-    maxMessageBuffers: 4
-    maxSocketAsyncEventArgs: 32
-    maxActionDispatcherTasks: 16
-    maxAutoRecyclingArrays: 4
-    extraSmallMemoryBlockSize: 16
-    maxExtraSmallMemoryBlocks: 2
-    smallMemoryBlockSize: 64
-    maxSmallMemoryBlocks: 2
-    mediumMemoryBlockSize: 256
-    maxMediumMemoryBlocks: 2
-    largeMemoryBlockSize: 1024
-    maxLargeMemoryBlocks: 2
-    extraLargeMemoryBlockSize: 4096
-    maxExtraLargeMemoryBlocks: 2
---- !u!4 &1434617031
-Transform:
->>>>>>> feat: added DarkRift:Assets/_ARPlane/Scenes/Playground/Playground-DarkRift.unity
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2737,11 +2696,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897315527}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-<<<<<<< HEAD:Assets/_ARPlane/Scenes/ARCraft.unity
 --- !u!1 &1990026147
-=======
---- !u!1 &2048555134
->>>>>>> feat: added DarkRift:Assets/_ARPlane/Scenes/Playground/Playground-DarkRift.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2749,46 +2704,20 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< HEAD:Assets/_ARPlane/Scenes/ARCraft.unity
   - component: {fileID: 1990026148}
   m_Layer: 0
   m_Name: WorldOrigin
-=======
-  - component: {fileID: 2048555136}
-  - component: {fileID: 2048555135}
-  m_Layer: 0
-  m_Name: OtherCrafts
->>>>>>> feat: added DarkRift:Assets/_ARPlane/Scenes/Playground/Playground-DarkRift.unity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD:Assets/_ARPlane/Scenes/ARCraft.unity
 --- !u!4 &1990026148
-=======
---- !u!114 &2048555135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2048555134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b84d98d1c7fee4558bc1eeadfa2f0ce7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  client: {fileID: 1434617028}
-  networkPrefab: {fileID: 400000, guid: f59be258fa0c1bc409e8a82f577dea4b, type: 3}
---- !u!4 &2048555136
->>>>>>> feat: added DarkRift:Assets/_ARPlane/Scenes/Playground/Playground-DarkRift.unity
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD:Assets/_ARPlane/Scenes/ARCraft.unity
   m_GameObject: {fileID: 1990026147}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -2798,15 +2727,6 @@ Transform:
   - {fileID: 472725603}
   m_Father: {fileID: 0}
   m_RootOrder: 7
-=======
-  m_GameObject: {fileID: 2048555134}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 631.5878, y: 1813.5825, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
->>>>>>> feat: added DarkRift:Assets/_ARPlane/Scenes/Playground/Playground-DarkRift.unity
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2052060040
 GameObject:
