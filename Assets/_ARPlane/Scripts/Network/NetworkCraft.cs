@@ -6,26 +6,29 @@ using UnityEngine;
 
 // This is the players' craft
 // Will send position and rotation to the server
-public class NetworkCraft : MonoBehaviour
-{
-    [SerializeField] private UnityClient client;
-
-    private void Update()
+namespace UniversoAumentado.ARCraft.Network
     {
-        // Todo: should we throttle this somehow?
+    public class NetworkCraft : MonoBehaviour
+    {
+        [SerializeField] private UnityClient client;
 
-        using (DarkRiftWriter writer = DarkRiftWriter.Create())
+        private void Update()
         {
-            writer.Write(transform.position.x);
-            writer.Write(transform.position.y);
-            writer.Write(transform.position.z);
-            writer.Write(transform.rotation.x);
-            writer.Write(transform.rotation.y);
-            writer.Write(transform.rotation.z);
+            // Todo: should we throttle this somehow?
 
-            using (Message message = Message.Create((int)MessageTag.UpdateTransform, writer))
+            using (DarkRiftWriter writer = DarkRiftWriter.Create())
             {
-                client.SendMessage(message, SendMode.Unreliable);
+                writer.Write(transform.position.x);
+                writer.Write(transform.position.y);
+                writer.Write(transform.position.z);
+                writer.Write(transform.rotation.x);
+                writer.Write(transform.rotation.y);
+                writer.Write(transform.rotation.z);
+
+                using (Message message = Message.Create((int)MessageTag.UpdateTransform, writer))
+                {
+                    client.SendMessage(message, SendMode.Unreliable);
+                }
             }
         }
     }

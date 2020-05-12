@@ -1,6 +1,7 @@
 ﻿//#define DEBUG
 
-namespace UniversoAumentado.ARCraft {
+namespace UniversoAumentado.ARCraft.AR 
+{
 	using System;
 	using System.Collections;
 	using System.Collections.Generic;
@@ -8,7 +9,8 @@ namespace UniversoAumentado.ARCraft {
 	using UnityEngine;
 
 	[RequireComponent(typeof(Rigidbody))]
-	public class ARCraft : MonoBehaviour {
+	public class ARCraft : MonoBehaviour 
+	{
 
 		public Transform target;
 		public Transform cam;

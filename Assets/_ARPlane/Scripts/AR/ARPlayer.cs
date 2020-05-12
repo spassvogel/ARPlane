@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UniversoAumentado.ARCraft {
+namespace UniversoAumentado.ARCraft.AR {
 
 public class ARPlayer : MonoBehaviour {
 
