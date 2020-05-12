@@ -12,6 +12,7 @@ namespace UniversoAumentado.ARCraft {
 
 		public Transform target;
 		public Transform cam;
+		public GameObject bombPrefab;
 		public DebugTexts debugTexts;
 
 		private float maxForce = 500;
@@ -29,8 +30,8 @@ namespace UniversoAumentado.ARCraft {
 
 		private Vector3 previousVelocity;
 		private float currentLift = 0f;
-		private float distanceToTarget = 0;
 		private float horizontalDistanceToTarget = 0;
+		private float altitude = Mathf.Infinity;
 
 		Rigidbody body;
 
@@ -48,12 +49,13 @@ namespace UniversoAumentado.ARCraft {
 			Banking();
 			Stabilize();
 			Gravity();
+			HandleInput();
+			CalculateAltitude();
 
 			previousVelocity = body.velocity;
 		}
 
 		void CalculateValues() {
-			distanceToTarget = Vector3.Distance(target.position, transform.position);
 			currentLift = CalculateLift(body.velocity);
 			horizontalDistanceToTarget = Vector2.Distance(
 				new Vector2(target.position.x, target.position.z),
@@ -61,6 +63,15 @@ namespace UniversoAumentado.ARCraft {
 			);
 			DebugText("ARCraft:", $"{transform.position}");
 			DebugText("Target:", $"{target.position}");
+		}
+
+		void CalculateAltitude() {
+			RaycastHit hit;
+			altitude = Mathf.Infinity;
+			if(Physics.Raycast(transform.position, Vector3.down, out hit)) {
+				altitude = hit.distance;
+			}
+			DebugText("Altitude:", $"{altitude}");
 		}
 
 		float CalculateLift(Vector3 velocity) {
@@ -98,17 +109,12 @@ namespace UniversoAumentado.ARCraft {
 			Vector3 direction = (target.position - transform.position).normalized;
 
 			// Attract
-			float distanceMultiplier = Mathf.Min(1, horizontalDistanceToTarget / maxForceDistance);
-			Vector3 engineForce = direction * distanceMultiplier * maxForce;
+			float throttle = Mathf.Min(1, horizontalDistanceToTarget / maxForceDistance);
+			Vector3 engineForce = direction * throttle * maxForce;
 			body.AddForce(engineForce);
 
-			DebugText("Horizontal Distance To Target:", $"{horizontalDistanceToTarget}");
-			DebugText("Distance Multiplier:", $"{distanceMultiplier}");
-
-			// Brake
-			//float brakeMultiplier = Mathf.Min(1, 1 - horizontalDistanceToTarget / maxForceDistance);
-			//Vector3 brakeForce = -1 * direction * brakeMultiplier * maxForce * 2;
-			//body.AddForce(brakeForce);
+			DebugText("Horiz. Distance To Target:", $"{horizontalDistanceToTarget}");
+			DebugText("Throttle:", $"{throttle}");
 
 			// Attract more in Z-direction of target
 			Vector3 fromTarget = target.InverseTransformDirection(target.position - transform.position);
@@ -135,10 +141,26 @@ namespace UniversoAumentado.ARCraft {
 
 			// Lift to cancel out gravity
 			body.AddForce(Vector3.up * Mathf.Min(artificialGravity, currentLift * lift));
-		
-			// Continuous nose down
-			Vector3 noseDown = Vector3.Cross(transform.forward, Vector3.down);
-			body.AddTorque(noseDown * noseDownForce);
+
+			// Continuous nose down (except when landing)
+			if (altitude > 5) {
+				Vector3 noseDown = Vector3.Cross(transform.forward, Vector3.down);
+				body.AddTorque(noseDown * noseDownForce);
+			}
+		}
+
+		void HandleInput() {
+			if (Input.GetMouseButtonDown(0)) {
+				DropBomb();
+			}
+		}
+
+		void DropBomb() {
+			Debug.Log("Dropping bomb!");
+			GameObject bomb = Instantiate(bombPrefab);
+
+			// Spawn the bomb slightly below the plane to avoid collision
+			bomb.transform.position = transform.position + new Vector3(0, -3, 0);
 		}
 
 		void DebugText(string name, string value) {

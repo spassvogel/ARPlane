@@ -14,7 +14,6 @@ public class DebugTexts : MonoBehaviour {
     }
 
     public void SetDebugText(string name, string value) {
-        Debug.Log($"Setting debug text {name} to {value}");
         Text text;
         if(!texts.ContainsKey(name)) {
             text = Instantiate(prototype);
