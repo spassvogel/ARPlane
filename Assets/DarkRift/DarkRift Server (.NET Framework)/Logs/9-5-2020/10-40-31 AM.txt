@@ -1,0 +1,11 @@
+[Trace]   DarkRiftServer        System Details:
+                                	OS: Unix 19.4.0.0
+                                	CLS Version: 4.0.30319.42000
+                                	DarkRift: 2.5.0.0 - Free
+[Trace]   PluginFactory         Created plugin 'ARPlanePlugin'.
+[Trace]   ExtendedPluginManagerBase Plugin 'ARPlanePlugin' has requested that DarkRift operates in thread safe mode.
+[Trace]   DarkRiftServer        Switched into thread safe mode. Expect lower performance!
+[Info]    ExtendedPluginManagerBase Loaded plugin ARPlanePlugin version 1.0.0
+[Trace]   PluginFactory         Created plugin 'BichannelListener'.
+[Trace]   DefaultNetworkListener Starting bichannel listener.
+[Info]    DefaultNetworkListener Server mounted, listening on port 4296.
