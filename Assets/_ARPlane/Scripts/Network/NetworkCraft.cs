@@ -23,7 +23,7 @@ public class NetworkCraft : MonoBehaviour
             writer.Write(transform.rotation.y);
             writer.Write(transform.rotation.z);
 
-            using (Message message = Message.Create(Tags.UpdateTransform, writer))
+            using (Message message = Message.Create((int)MessageTag.UpdateTransform, writer))
             {
                 client.SendMessage(message, SendMode.Unreliable);
             }

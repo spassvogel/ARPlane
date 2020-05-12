@@ -18,7 +18,7 @@ namespace UniversoAumentado.ARCraft.Network
             {
                 writer.Write(name);
 
-                using (Message message = Message.Create(Tags.UpdateName, writer))
+                using (Message message = Message.Create((int)MessageTag.UpdateName, writer))
                 {
                     client.SendMessage(message, SendMode.Reliable);
                 }

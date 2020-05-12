@@ -28,9 +28,9 @@ namespace UniversoAumentado.ARCraft.Network
         {
             using (Message message = e.GetMessage() as Message)
             {
-                switch(message.Tag) 
+                switch((MessageTag)message.Tag) 
                 {
-                    case Tags.SpawnCraft:
+                    case MessageTag.SpawnCraft:
                         using (DarkRiftReader reader = message.GetReader())
                         {
                             ushort id = reader.ReadUInt16();
@@ -40,7 +40,7 @@ namespace UniversoAumentado.ARCraft.Network
                         }
                         break;
 
-                    case Tags.UpdateTransform:
+                    case MessageTag.UpdateTransform:
                         using (DarkRiftReader reader = message.GetReader())
                         {
                             ushort id = reader.ReadUInt16();
@@ -55,7 +55,7 @@ namespace UniversoAumentado.ARCraft.Network
                             transform.rotation = Quaternion.Euler(rotX, rotY, rotZ);
                         }
                         break;
-                    case Tags.DespawnCraft:
+                    case MessageTag.DespawnCraft:
                         using (DarkRiftReader reader = message.GetReader())
                         {
                             ushort id = reader.ReadUInt16();
