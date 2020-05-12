@@ -28,31 +28,43 @@ namespace UniversoAumentado.ARCraft.Network
         {
             using (Message message = e.GetMessage() as Message)
             {
-                if (message.Tag == Tags.SpawnCraft)
+                switch(message.Tag) 
                 {
-                    using (DarkRiftReader reader = message.GetReader())
-                    {
-                        ushort id = reader.ReadUInt16();
-                        var craft = Instantiate(networkPrefab, transform);
-                        craft.gameObject.name = $"[client:{id}]";
-                        Add(id, craft);
-                    }
-                }
-                else if (message.Tag == Tags.UpdateTransform)
-                {
-                    using (DarkRiftReader reader = message.GetReader())
-                    {
-                        ushort id = reader.ReadUInt16();
-                        float posX = reader.ReadSingle();
-                        float posY = reader.ReadSingle();
-                        float posZ = reader.ReadSingle();
-                        float rotX = reader.ReadSingle();
-                        float rotY = reader.ReadSingle();
-                        float rotZ = reader.ReadSingle();
-                        var transform = networkCrafts[id];
-                        transform.position = new Vector3(posX, posY, posZ);
-                        transform.rotation = Quaternion.Euler(rotX, rotY, rotZ);
-                    }
+                    case Tags.SpawnCraft:
+                        using (DarkRiftReader reader = message.GetReader())
+                        {
+                            ushort id = reader.ReadUInt16();
+                            var craft = Instantiate(networkPrefab, transform);
+                            craft.gameObject.name = $"[client:{id}]";
+                            Add(id, craft);
+                        }
+                        break;
+
+                    case Tags.UpdateTransform:
+                        using (DarkRiftReader reader = message.GetReader())
+                        {
+                            ushort id = reader.ReadUInt16();
+                            float posX = reader.ReadSingle();
+                            float posY = reader.ReadSingle();
+                            float posZ = reader.ReadSingle();
+                            float rotX = reader.ReadSingle();
+                            float rotY = reader.ReadSingle();
+                            float rotZ = reader.ReadSingle();
+                            var transform = networkCrafts[id];
+                            transform.position = new Vector3(posX, posY, posZ);
+                            transform.rotation = Quaternion.Euler(rotX, rotY, rotZ);
+                        }
+                        break;
+                    case Tags.DespawnCraft:
+                        using (DarkRiftReader reader = message.GetReader())
+                        {
+                            ushort id = reader.ReadUInt16();
+                            Destroy(networkCrafts[id].gameObject);
+                            networkCrafts.Remove(id);
+
+                            print($"Player {id} has disconnected");
+                        }
+                        break;
                 }
             }
         }
