@@ -610,6 +610,7 @@ GameObject:
   - component: {fileID: 1164950283}
   - component: {fileID: 1164950282}
   - component: {fileID: 1164950281}
+  - component: {fileID: 1164950285}
   m_Layer: 0
   m_Name: AR Camera
   m_TagString: MainCamera
@@ -715,6 +716,21 @@ Transform:
   m_Father: {fileID: 1298900577}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1164950285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164950279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d78bc667b980e47f3b969a82668eb442, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 200
+  lookSpeed: 3
+  logPosition: 0
 --- !u!1 &1223120269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,6 +1564,51 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789902578593457831, guid: 6483492732e02490b8b89c3cfe46f499,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789902578593457831, guid: 6483492732e02490b8b89c3cfe46f499,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789902578593457831, guid: 6483492732e02490b8b89c3cfe46f499,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789902578593457831, guid: 6483492732e02490b8b89c3cfe46f499,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789902579182362240, guid: 6483492732e02490b8b89c3cfe46f499,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789902579182362240, guid: 6483492732e02490b8b89c3cfe46f499,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789902579182362240, guid: 6483492732e02490b8b89c3cfe46f499,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789902579182362240, guid: 6483492732e02490b8b89c3cfe46f499,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789902579182362240, guid: 6483492732e02490b8b89c3cfe46f499,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6483492732e02490b8b89c3cfe46f499, type: 3}

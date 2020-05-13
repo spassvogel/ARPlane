@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427182, b: 0.5645241, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -208,13 +208,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 213374380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80d8cf0c48fc1c0478b2c09f9b846e69, type: 3}
+  m_Script: {fileID: 11500000, guid: bab7a557aef9e4fd09329d43274ab2e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1494848800}
   cam: {fileID: 1164950284}
-  bombPrefab: {fileID: 0}
-  debugTexts: {fileID: 0}
+  bombPrefab: {fileID: 3971153954515004492, guid: 703dac8ef4c71b446b6bd85021b99a81,
+    type: 3}
+  debugTexts: {fileID: 1065321478}
   reverse: 0
 --- !u!95 &213374383
 Animator:
@@ -713,6 +714,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6104552592775496754, guid: e0f2a79dc155d49798bba36bcf0114ba,
+        type: 3}
+      propertyPath: prototype
+      value: 
+      objectReference: {fileID: 1065321477}
     - target: {fileID: 6104552592775496764, guid: e0f2a79dc155d49798bba36bcf0114ba,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -735,6 +741,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0f2a79dc155d49798bba36bcf0114ba, type: 3}
+--- !u!114 &1065321477 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6104552591183379482, guid: e0f2a79dc155d49798bba36bcf0114ba,
+    type: 3}
+  m_PrefabInstance: {fileID: 1065321476}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1065321478 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6104552592775496754, guid: e0f2a79dc155d49798bba36bcf0114ba,
+    type: 3}
+  m_PrefabInstance: {fileID: 1065321476}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56d53820f9d484743881818bbd7e4e8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1164950279
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,7 +893,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1164950279}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2d4e5b2fd594a44084158771655e09b, type: 3}
+  m_Script: {fileID: 11500000, guid: d78bc667b980e47f3b969a82668eb442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 200
@@ -989,7 +1019,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1298900575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b715e8e0ce87064681e3ed41f82bacf, type: 3}
+  m_Script: {fileID: 11500000, guid: 91447d741c88447baa700e00e14e851c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   trackedImageManager: {fileID: 1298900579}
