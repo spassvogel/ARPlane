@@ -8,20 +8,17 @@ namespace UniversoAumentado.ARCraft.UI
 {
     public class UIController : MonoBehaviour
     {
-        public GameObject SearchingForServerUI;
-        public GameObject SearchingForMarker;
-        public GameObject SearchingForTrackerUI;
+        public GameObject LobbyUI;
         public GameObject PlayingUI;
 
-        private void Awake()
+        void OnEnable()
         {
             GlobalEventDispatcher.Instance.AddEventListener<GameStateChangeEvent>(OnGameStateChanged);
         }
 
-        private void OnDestroy()
+        void OnDisable()
         {
             GlobalEventDispatcher.Instance.RemoveEventListener<GameStateChangeEvent>(OnGameStateChanged);
-
         }
 
 
@@ -29,17 +26,9 @@ namespace UniversoAumentado.ARCraft.UI
         {
             var evt = e as GameStateChangeEvent;
 
-            SearchingForServerUI.SetActive(evt.GameState == GameController.GameStates.SearchingForServer);
-            SearchingForMarker.SetActive(evt.GameState == GameController.GameStates.SearchingForMarker);
-            SearchingForTrackerUI.SetActive(evt.GameState == GameController.GameStates.SearchingForTracker);
+            LobbyUI.SetActive(evt.GameState == GameController.GameStates.Lobby);
             PlayingUI.SetActive(evt.GameState == GameController.GameStates.Playing);
         }
 
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }

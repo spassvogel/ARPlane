@@ -9,9 +9,7 @@ namespace UniversoAumentado.ARCraft.Game
 
         public enum GameStates
         {
-            SearchingForServer,
-            SearchingForMarker,
-            SearchingForTracker,
+            Lobby,
             Playing
         }       
 
@@ -19,19 +17,9 @@ namespace UniversoAumentado.ARCraft.Game
         // Use this for initialization
         void Start()
         {
-            var startState = GameStates.SearchingForServer;
+            var startState = GameStates.Lobby;
             GlobalEventDispatcher.Instance.DispatchEvent(new GameStateChangeEvent(startState));
         }
 
-        private void OnDestroy()
-        {
-            
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }
