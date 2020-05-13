@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace UniversoAumentado.ARCraft.Debug {
+
+namespace UniversoAumentado.ARCraft.Debugging
+{
 
 	public class DebugMovement : MonoBehaviour {
 

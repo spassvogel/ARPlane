@@ -1,14 +1,9 @@
-﻿//#define DEBUG
+﻿using UnityEngine;
+using UniversoAumentado.ARCraft.Debugging;
 
 namespace UniversoAumentado.ARCraft.AR 
 {
-	using System;
-	using System.Collections;
-	using System.Collections.Generic;
-	using System.Net;
-	using UnityEngine;
-
-	[RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody))]
 	public class ARCraft : MonoBehaviour 
 	{
 

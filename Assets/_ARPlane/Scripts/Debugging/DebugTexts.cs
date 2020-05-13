@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-namespace UniversoAumentado.ARCraft.Debug {
+
+namespace UniversoAumentado.ARCraft.Debugging
+{
 
     public class DebugTexts : MonoBehaviour {
 
