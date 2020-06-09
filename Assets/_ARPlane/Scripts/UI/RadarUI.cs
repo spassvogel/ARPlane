@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using UniversoAumentado.ARCraft.AR;
 
 public class RadarUI : MonoBehaviour
 {
-    [SerializeField] private ARCraft arCraft;
+    /**The transform this radar is tracking */
+    [SerializeField] private Transform trackedTransform;
     [SerializeField] private RectTransform indicator;
 
     private Vector2 screenCenter;
@@ -18,7 +18,7 @@ public class RadarUI : MonoBehaviour
 
     void Update()
     {
-        Vector2 screenPoint = Camera.main.WorldToScreenPoint(arCraft.transform.position);
+        Vector2 screenPoint = Camera.main.WorldToScreenPoint(trackedTransform.position);
         if (screenRect.Contains(screenPoint))
         {
             // Ship is currently on screen, no need to show the indicator

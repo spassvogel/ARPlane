@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68b00ff9855194053bb208f2d681a0e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arCraft: {fileID: 213374381}
+  trackedTransform: {fileID: 1007399794}
   indicator: {fileID: 764603477}
 --- !u!1 &213374380
 GameObject:
@@ -503,7 +503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &764603477
 RectTransform:
   m_ObjectHideFlags: 0
