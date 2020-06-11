@@ -16,7 +16,7 @@ public class NetworkObject : MonoBehaviour {
     NetworkObjectManager networkObjectManager;
 
     void Awake() {
-        transform.name = $"NetworkObject-{id}";
+        UpdateName();
 
         networkObjectManager = GetComponentInParent<NetworkObjectManager>();
         if(!networkObjectManager) {
@@ -39,6 +39,12 @@ public class NetworkObject : MonoBehaviour {
         networkObjectManager.RemoveObject(this);
     }
 
+    void UpdateName() {
+        if(state == State.LISTEN) {
+            transform.name = $"NetworkObject-{id}";
+        }
+    }
+
     public ARPlaneServer.Classes.GameObject GetNetworkObject() {
         return new ARPlaneServer.Classes.GameObject() {
             id = id,
@@ -57,6 +63,6 @@ public class NetworkObject : MonoBehaviour {
     public void SetObjectInfo(ARPlaneServer.Classes.GameObject info) {
         ownerID = info.ownerID;
         id = info.id;
-        transform.name = $"NetworkObject-{id}";
+        UpdateName();
     }
 }

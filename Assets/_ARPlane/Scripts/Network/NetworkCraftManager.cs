@@ -26,12 +26,14 @@ namespace UniversoAumentado.ARCraft.Network {
         }
 
         void HandleARCraftSpawn(ARCraftSpawnEvent spawnEvent) {
-            CreateNetworkCraft(spawnEvent.arCraft);
+            if(spawnEvent.arCraft.ownerID != client.ID) {
+                CreateNetworkCraft(spawnEvent.arCraft);
+            }
         }
 
         void CreateNetworkCraft(ARPlaneServer.Classes.ARCraft arCraft) {
             var craft = Instantiate(arPlanePrefab, transform);
-            craft.gameObject.name = $"[client:{arCraft.ownerID}]";
+            craft.gameObject.name = $"[player:{arCraft.ownerID}]";
             networkCrafts[arCraft.ownerID] = craft;
         }
 
