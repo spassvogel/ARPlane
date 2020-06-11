@@ -1,4 +1,4 @@
-﻿using ARPlaneServer.Classes;
+﻿using System;
 using UnityEngine;
 using UniversoAumentado.ARCraft.Network;
 
@@ -11,6 +11,7 @@ public class NetworkObject : MonoBehaviour {
     public string id;
     public int ownerID;
     public State state;
+    public string type = "default";
 
     NetworkObjectManager networkObjectManager;
 
@@ -43,7 +44,8 @@ public class NetworkObject : MonoBehaviour {
             id = id,
             ownerID = (ushort)ownerID,
             position = new ARPlaneServer.Classes.Vector3(transform.position.x, transform.position.y, transform.position.z),
-            rotation = new ARPlaneServer.Classes.Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z)
+            rotation = new ARPlaneServer.Classes.Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z),
+            type = type
         };
     }
 
