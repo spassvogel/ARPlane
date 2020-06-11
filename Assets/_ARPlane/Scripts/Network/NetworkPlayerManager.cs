@@ -10,28 +10,38 @@ namespace UniversoAumentado.ARCraft.Network {
         readonly Dictionary<int, Player> players = new Dictionary<int, Player>();
         Player player;
 
+        string playerName;
+
         protected override void MessageReceived(Message message, DarkRiftReader reader) {
             switch ((Tag)message.Tag) {
                 case Tag.PlayerStates:
                     PlayerStatesEvent playerStatesEvent = reader.ReadSerializable<PlayerStatesEvent>();
-                    SetupPlayerStates(playerStatesEvent);
+                    HandlePlayerStates(playerStatesEvent);
                     break;
                 case Tag.PlayerUpdate:
                     PlayerUpdateEvent playerUpdateEvent = reader.ReadSerializable<PlayerUpdateEvent>();
-                    UpdatePlayer(playerUpdateEvent);
+                    HandleUpdatePlayer(playerUpdateEvent);
                     break;
             }
         }
 
-        void UpdatePlayer(PlayerUpdateEvent playerUpdateEvent) {
+        void HandleUpdatePlayer(PlayerUpdateEvent playerUpdateEvent) {
+            Debug.Log($"Player {playerUpdateEvent.newPlayerState.id} info updated.");
             players[playerUpdateEvent.newPlayerState.id] = playerUpdateEvent.newPlayerState;
         }
 
-        void SetupPlayerStates(PlayerStatesEvent playerStatesEvent) {
+        void HandlePlayerStates(PlayerStatesEvent playerStatesEvent) {
             foreach(Player player in playerStatesEvent.players) {
                 players[player.id] = player;
             }
             player = players[client.ID];
+
+            Debug.Log($"Received info {players.Count} for players.");
+
+            // Player name was set before we had player info, set it officially now
+            if (!string.IsNullOrEmpty(playerName)) {
+                SetPlayerName(playerName);
+            }
         }
 
         public void SetPlayerName(string name) {
@@ -39,6 +49,14 @@ namespace UniversoAumentado.ARCraft.Network {
                 Debug.LogError("Not connected. Cannot set player name.");
                 return;
             }
+            // No player information received yet
+            if(player == null) {
+                Debug.Log("Player name set before player info was received. Storing for later.");
+                playerName = name; // store name until we do
+                return;
+            }
+
+            Debug.Log($"Setting player name to '{name}.'");
             player.name = name;
             SendMessage(Tag.PlayerUpdate, new PlayerUpdateEvent() {
                 newPlayerState = player
