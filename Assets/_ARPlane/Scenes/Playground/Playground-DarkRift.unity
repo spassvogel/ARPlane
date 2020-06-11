@@ -948,7 +948,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   client: {fileID: 1434617028}
-  prefabs: []
+  prefabs:
+  - type: arcraft
+    prefab: {fileID: 100000, guid: fca73c5513ed66941bd63e25a65e15d7, type: 3}
 --- !u!1 &1378805366
 GameObject:
   m_ObjectHideFlags: 0
