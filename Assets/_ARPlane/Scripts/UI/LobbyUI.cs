@@ -6,12 +6,14 @@ using DarkRift.Client.Unity;
 using UnityEngine;
 using UnityEngine.UI;
 using UniversoAumentado.ARCraft.Events;
+using UniversoAumentado.ARCraft.Network;
 using UniversoAumentado.ARCraft.Utils;
 
 namespace UniversoAumentado.ARCraft.UI
 {
     public class LobbyUI : MonoBehaviour
     {
+        [SerializeField] private NetworkPlayerManager networkPlayerManager;
         [SerializeField] private Button joinButton;
         [SerializeField] private TMPro.TMP_InputField ipAddressText;
         [SerializeField] private TMPro.TMP_Dropdown ipAddressDropdown;
@@ -71,17 +73,7 @@ namespace UniversoAumentado.ARCraft.UI
 
         private void SetName()
         {
-            // Now we're connected, let's inform the server our name
-            string name = nameText.text;
-            using (DarkRiftWriter writer = DarkRiftWriter.Create())
-            {
-                writer.Write(name);
-
-                using (Message message = Message.Create((int)MessageTag.UpdateName, writer))
-                {
-                    client.SendMessage(message, SendMode.Reliable);
-                }
-            }
+            networkPlayerManager.SetPlayerName(nameText.text);
         }
     }
 }

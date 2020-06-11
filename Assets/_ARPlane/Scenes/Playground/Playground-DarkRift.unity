@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427182, b: 0.5645241, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -226,10 +226,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 213374380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f4d7c3d42424410eb693ba4b3371373, type: 3}
+  m_Script: {fileID: 11500000, guid: 02ea5e74a208f4044950c62541e87d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  client: {fileID: 1434617028}
+  id: 
+  ownerID: 0
+  state: 1
+  createIfNotExists: 0
 --- !u!95 &213374383
 Animator:
   serializedVersion: 3
@@ -807,7 +810,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   client: {fileID: 1434617028}
-  networkPrefab: {fileID: 400000, guid: f59be258fa0c1bc409e8a82f577dea4b, type: 3}
+  arPlanePrefab: {fileID: 0}
 --- !u!1 &1298900575
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,7 +945,7 @@ GameObject:
   - component: {fileID: 1434617030}
   - component: {fileID: 1434617028}
   m_Layer: 0
-  m_Name: NetworkManager
+  m_Name: NetworkClient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1264,6 +1267,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1990026148}
+  - component: {fileID: 1990026149}
   m_Layer: 0
   m_Name: WorldOrigin
   m_TagString: Untagged
@@ -1288,6 +1292,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1990026149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990026147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad17173666159ba459db4aa12e5a0173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  client: {fileID: 1434617028}
+  prefabs: []
 --- !u!1 &2052060040
 GameObject:
   m_ObjectHideFlags: 0

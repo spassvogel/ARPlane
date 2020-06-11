@@ -1,71 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ARPlaneServer.Events;
 using DarkRift;
 using DarkRift.Client;
 using DarkRift.Client.Unity;
 using UnityEngine;
 
-namespace UniversoAumentado.ARCraft.Network
-{
-    public class NetworkCraftManager : MonoBehaviour
-    {
-        [SerializeField] private UnityClient client;
-        [SerializeField] private Transform networkPrefab;
+namespace UniversoAumentado.ARCraft.Network {
+    public class NetworkCraftManager : NetworkManager {
+        [SerializeField] private GameObject arPlanePrefab;
 
-        Dictionary<ushort, Transform> networkCrafts = new Dictionary<ushort, Transform>();
+        readonly Dictionary<ushort, GameObject> networkCrafts = new Dictionary<ushort, GameObject>();
 
-        public void Add(ushort id, Transform craft)
-        {
-            networkCrafts.Add(id, craft);
+        protected override void MessageReceived(Message message, DarkRiftReader reader) {
+            switch ((Tag)message.Tag) {
+                case Tag.ARCraftSpawn:
+                    ARCraftSpawnEvent spawnEvent = reader.ReadSerializable<ARCraftSpawnEvent>();
+                    CreateNetworkCraft(spawnEvent);
+                    break;
+                case Tag.ARCraftStates:
+                    ARCraftStatesEvent statesEvent = reader.ReadSerializable<ARCraftStatesEvent>();
+                    SetARCraftStates(statesEvent);
+                    break;
+            }
         }
 
-        public void Awake()
-        {
-            client.MessageReceived += MessageReceived;
+        void CreateNetworkCraft(ARCraftSpawnEvent spawnEvent) {
+            CreateNetworkCraft(spawnEvent.arCraft);
         }
 
-        void MessageReceived(object sender, MessageReceivedEventArgs e)
-        {
-            using (Message message = e.GetMessage() as Message)
-            {
-                switch((MessageTag)message.Tag) 
-                {
-                    case MessageTag.SpawnCraft:
-                        using (DarkRiftReader reader = message.GetReader())
-                        {
-                            ushort id = reader.ReadUInt16();
-                            var craft = Instantiate(networkPrefab, transform);
-                            craft.gameObject.name = $"[client:{id}]";
-                            Add(id, craft);
-                        }
-                        break;
+        void CreateNetworkCraft(ARPlaneServer.Classes.ARCraft arCraft) {
+            var craft = Instantiate(arPlanePrefab, transform);
+            craft.gameObject.name = $"[client:{arCraft.ownerID}]";
+            networkCrafts[arCraft.ownerID] = craft;
+        }
 
-                    case MessageTag.UpdateTransform:
-                        using (DarkRiftReader reader = message.GetReader())
-                        {
-                            ushort id = reader.ReadUInt16();
-                            float posX = reader.ReadSingle();
-                            float posY = reader.ReadSingle();
-                            float posZ = reader.ReadSingle();
-                            float rotX = reader.ReadSingle();
-                            float rotY = reader.ReadSingle();
-                            float rotZ = reader.ReadSingle();
-                            var transform = networkCrafts[id];
-                            transform.position = new Vector3(posX, posY, posZ);
-                            transform.rotation = Quaternion.Euler(rotX, rotY, rotZ);
-                        }
-                        break;
-                    case MessageTag.DespawnCraft:
-                        using (DarkRiftReader reader = message.GetReader())
-                        {
-                            ushort id = reader.ReadUInt16();
-                            Destroy(networkCrafts[id].gameObject);
-                            networkCrafts.Remove(id);
-
-                            print($"Player {id} has disconnected");
-                        }
-                        break;
-                }
+        void SetARCraftStates(ARCraftStatesEvent statesEvent) {
+            foreach(ARPlaneServer.Classes.ARCraft otherCraft in statesEvent.otherCrafts) {
+                CreateNetworkCraft(otherCraft);
             }
         }
     }
