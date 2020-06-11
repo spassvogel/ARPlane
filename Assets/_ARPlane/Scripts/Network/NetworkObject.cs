@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UniversoAumentado.ARCraft.Network;
 
 public class NetworkObject : MonoBehaviour {
@@ -8,24 +7,20 @@ public class NetworkObject : MonoBehaviour {
         LISTEN, BROADCAST
     }
 
+    public NetworkObjectManager networkObjectManager;
+
     public string id;
     public int ownerID;
     public State state;
     public string type;
 
-    NetworkObjectManager networkObjectManager;
-
-    void Awake() {
-        UpdateName();
-
-        networkObjectManager = GetComponentInParent<NetworkObjectManager>();
-        if(!networkObjectManager) {
+    void Start() {
+        if (!networkObjectManager) {
             Debug.LogError("NetworkObject could not find a NetworkObjectManager in parent. Will not be able to sync.");
             enabled = false;
             return;
         }
-
-        networkObjectManager.RegisterObject(this);
+        UpdateName();
     }
 
     void Update() {
@@ -70,6 +65,7 @@ public class NetworkObject : MonoBehaviour {
     public void SetObjectInfo(ARPlaneServer.Classes.GameObject info) {
         ownerID = info.ownerID;
         id = info.id;
+        type = info.type;
         UpdateName();
     }
 }

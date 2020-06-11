@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ARPlaneServer.Events;
 using DarkRift;
-using DarkRift.Client.Unity;
-using UnityEditor.PackageManager;
-using UnityEditorInternal;
 using UnityEngine;
-using UniversoAumentado.ARCraft.Events;
 
 namespace UniversoAumentado.ARCraft.Network {
 
@@ -19,7 +14,7 @@ namespace UniversoAumentado.ARCraft.Network {
         [Serializable]
         public class NetworkPrefab {
             public string type;
-            public NetworkObject prefab;
+            public GameObject prefab;
         }
 
         [SerializeField] private Transform spawnIn;
@@ -87,13 +82,23 @@ namespace UniversoAumentado.ARCraft.Network {
                 go.transform.SetParent(transform);
                 networkObject = go.GetComponent<NetworkObject>();
             } else {
-                Transform spawnTransform = spawnIn ?? transform;
-                networkObject = Instantiate(networkPrefab.prefab, spawnTransform);
+                // Instantiate prefab
+                Transform spawnTransform = spawnIn != null ? spawnIn : transform;
+                GameObject go = Instantiate(networkPrefab.prefab, spawnTransform);
+
+                // Make sure spawned object has a NetworkObject component
+                networkObject = go.GetComponent<NetworkObject>();
+                if(networkObject == null) {
+                    networkObject = go.AddComponent<NetworkObject>();
+                }
             }
 
+            // Set NetworkObject info and dependencies
             networkObject.SetObjectInfo(updateEvent.newState);
-
-            networkObjects[updateEvent.newState.id] = networkObject;
+            networkObject.state = NetworkObject.State.LISTEN;
+            networkObject.networkObjectManager = this;
+            
+            RegisterObject(networkObject);
 
             return networkObject;
         }
