@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ea5e74a208f4044950c62541e87d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkObjectManager: {fileID: 0}
   id: 
   ownerID: 0
   state: 1
@@ -301,7 +302,7 @@ Transform:
   m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
   m_Children: []
   m_Father: {fileID: 1990026148}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &472725604
 BoxCollider:
@@ -810,51 +811,6 @@ Transform:
   m_Father: {fileID: 2052060041}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1229154749
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1229154750}
-  - component: {fileID: 1229154751}
-  m_Layer: 0
-  m_Name: OtherCrafts
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1229154750
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1229154749}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.925, y: 10.735825, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
-  m_Children: []
-  m_Father: {fileID: 1990026148}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1229154751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1229154749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b84d98d1c7fee4558bc1eeadfa2f0ce7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  client: {fileID: 1434617028}
-  arPlanePrefab: {fileID: 100000, guid: f59be258fa0c1bc409e8a82f577dea4b, type: 3}
 --- !u!1 &1298900575
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,8 +913,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1359556980}
+  - component: {fileID: 1359556981}
   m_Layer: 0
-  m_Name: NetworkObjects
+  m_Name: NetworkObjectManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -976,8 +933,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1990026148}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1359556981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359556979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad17173666159ba459db4aa12e5a0173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  client: {fileID: 1434617028}
+  prefabs: []
 --- !u!1 &1378805366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,7 +1312,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1990026148}
-  - component: {fileID: 1990026149}
   m_Layer: 0
   m_Name: WorldOrigin
   m_TagString: Untagged
@@ -1361,27 +1331,11 @@ Transform:
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 1007399794}
-  - {fileID: 1229154750}
   - {fileID: 472725603}
   - {fileID: 1359556980}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1990026149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1990026147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad17173666159ba459db4aa12e5a0173, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  client: {fileID: 1434617028}
-  spawnIn: {fileID: 1359556980}
-  prefabs: []
 --- !u!1 &2052060040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,6 +1498,11 @@ PrefabInstance:
       propertyPath: arCraft
       value: 
       objectReference: {fileID: 213374381}
+    - target: {fileID: 760314861326747026, guid: 6483492732e02490b8b89c3cfe46f499,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 760314861820616954, guid: 6483492732e02490b8b89c3cfe46f499,
         type: 3}
       propertyPath: client

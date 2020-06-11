@@ -14,18 +14,27 @@ namespace UniversoAumentado.ARCraft.Network {
 
         protected override void MessageReceived(Message message, DarkRiftReader reader) {
             switch ((Tag)message.Tag) {
+                case Tag.PlayerConnected:
+                    PlayerConnectedEvent playerConnectedEvent = reader.ReadSerializable<PlayerConnectedEvent>();
+                    HandlePlayerConnected(playerConnectedEvent);
+                    break;
                 case Tag.PlayerStates:
                     PlayerStatesEvent playerStatesEvent = reader.ReadSerializable<PlayerStatesEvent>();
                     HandlePlayerStates(playerStatesEvent);
                     break;
                 case Tag.PlayerUpdate:
                     PlayerUpdateEvent playerUpdateEvent = reader.ReadSerializable<PlayerUpdateEvent>();
-                    HandleUpdatePlayer(playerUpdateEvent);
+                    HandlePlayerUpdate(playerUpdateEvent);
                     break;
             }
         }
 
-        void HandleUpdatePlayer(PlayerUpdateEvent playerUpdateEvent) {
+        void HandlePlayerConnected(PlayerConnectedEvent playerConnectedEvent) {
+            Debug.Log($"Player {playerConnectedEvent.player.id} connected.");
+            players[playerConnectedEvent.player.id] = playerConnectedEvent.player;
+        }
+
+        void HandlePlayerUpdate(PlayerUpdateEvent playerUpdateEvent) {
             Debug.Log($"Player {playerUpdateEvent.newPlayerState.id} info updated.");
             players[playerUpdateEvent.newPlayerState.id] = playerUpdateEvent.newPlayerState;
         }

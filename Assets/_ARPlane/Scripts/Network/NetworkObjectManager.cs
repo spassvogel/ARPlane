@@ -17,7 +17,6 @@ namespace UniversoAumentado.ARCraft.Network {
             public GameObject prefab;
         }
 
-        [SerializeField] private Transform spawnIn;
         [SerializeField] private NetworkPrefab[] prefabs;
 
         readonly Dictionary<string, NetworkObject> networkObjects = new Dictionary<string, NetworkObject>();
@@ -83,8 +82,7 @@ namespace UniversoAumentado.ARCraft.Network {
                 networkObject = go.GetComponent<NetworkObject>();
             } else {
                 // Instantiate prefab
-                Transform spawnTransform = spawnIn != null ? spawnIn : transform;
-                GameObject go = Instantiate(networkPrefab.prefab, spawnTransform);
+                GameObject go = Instantiate(networkPrefab.prefab, transform);
 
                 // Make sure spawned object has a NetworkObject component
                 networkObject = go.GetComponent<NetworkObject>();
