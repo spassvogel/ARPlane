@@ -232,7 +232,7 @@ MonoBehaviour:
   networkObjectManager: {fileID: 1359556981}
   id: 
   ownerID: 0
-  state: 1
+  mode: 1
   type: arcraft
 --- !u!95 &213374383
 Animator:
