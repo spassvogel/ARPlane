@@ -32,7 +32,7 @@ namespace UniversoAumentado.ARCraft.Network {
 
         void HandleObjectUpdate(ObjectUpdateEvent updateEvent) {
             NetworkObject networkObject = networkObjects[updateEvent.newState.id];
-            if (networkObject == null && updateEvent.createIfNotExists) {
+            if (networkObject == null) {
                 networkObject = CreateObject(updateEvent);
             }
             if (networkObject == null) return;
@@ -46,8 +46,7 @@ namespace UniversoAumentado.ARCraft.Network {
 
         public void UpdateObject(NetworkObject networkObject) {
             SendMessage(Tag.ObjectUpdate, new ObjectUpdateEvent() {
-                newState = networkObject.GetNetworkObject(),
-                createIfNotExists = networkObject.createIfNotExists
+                newState = networkObject.GetNetworkObject()
             });
         }
 

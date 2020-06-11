@@ -11,7 +11,6 @@ public class NetworkObject : MonoBehaviour {
     public string id;
     public int ownerID;
     public State state;
-    public bool createIfNotExists;
 
     NetworkObjectManager networkObjectManager;
 
@@ -56,5 +55,6 @@ public class NetworkObject : MonoBehaviour {
     public void SetObjectInfo(ARPlaneServer.Classes.GameObject info) {
         ownerID = info.ownerID;
         id = info.id;
+        transform.name = $"NetworkObject-{id}";
     }
 }
