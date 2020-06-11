@@ -16,16 +16,16 @@ namespace UniversoAumentado.ARCraft.Network {
             switch ((Tag)message.Tag) {
                 case Tag.ARCraftSpawn:
                     ARCraftSpawnEvent spawnEvent = reader.ReadSerializable<ARCraftSpawnEvent>();
-                    CreateNetworkCraft(spawnEvent);
+                    HandleARCraftSpawn(spawnEvent);
                     break;
                 case Tag.ARCraftStates:
                     ARCraftStatesEvent statesEvent = reader.ReadSerializable<ARCraftStatesEvent>();
-                    SetARCraftStates(statesEvent);
+                    HandleARCraftStates(statesEvent);
                     break;
             }
         }
 
-        void CreateNetworkCraft(ARCraftSpawnEvent spawnEvent) {
+        void HandleARCraftSpawn(ARCraftSpawnEvent spawnEvent) {
             CreateNetworkCraft(spawnEvent.arCraft);
         }
 
@@ -35,7 +35,7 @@ namespace UniversoAumentado.ARCraft.Network {
             networkCrafts[arCraft.ownerID] = craft;
         }
 
-        void SetARCraftStates(ARCraftStatesEvent statesEvent) {
+        void HandleARCraftStates(ARCraftStatesEvent statesEvent) {
             foreach(ARPlaneServer.Classes.ARCraft otherCraft in statesEvent.otherCrafts) {
                 CreateNetworkCraft(otherCraft);
             }
