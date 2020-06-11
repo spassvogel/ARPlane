@@ -5,11 +5,16 @@ using System.Linq;
 using ARPlaneServer.Events;
 using DarkRift;
 using DarkRift.Client.Unity;
+using UnityEditor.PackageManager;
+using UnityEditorInternal;
 using UnityEngine;
 using UniversoAumentado.ARCraft.Events;
 
 namespace UniversoAumentado.ARCraft.Network {
+
     public class NetworkObjectManager : NetworkManager {
+
+        static int nextID = 0;
 
         [Serializable]
         public class NetworkPrefab {
@@ -41,11 +46,25 @@ namespace UniversoAumentado.ARCraft.Network {
             networkObject.SetObjectState(updateEvent.newState);
         }
 
+        string GetNextID() {
+            if(client.ConnectionState != ConnectionState.Connected) {
+                throw new Exception("Client not connected, cannot generate NetworkObject ID.");
+            }
+            return $"{client.ID}-{nextID++}";
+        }
+
         public void RegisterObject(NetworkObject networkObject) {
             networkObjects[networkObject.id] = networkObject;
         }
 
         public void UpdateObject(NetworkObject networkObject) {
+            if(client.ConnectionState != ConnectionState.Connected) {
+                return;
+            }
+            if(string.IsNullOrEmpty(networkObject.id)) {
+                // NetworkObject may have registered before we were connected so this is the first time we can generate an ID.
+                networkObject.SetID(GetNextID());
+            }
             SendMessage(Tag.ObjectUpdate, new ObjectUpdateEvent() {
                 newState = networkObject.GetNetworkObject()
             });

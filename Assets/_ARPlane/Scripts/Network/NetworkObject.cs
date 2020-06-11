@@ -11,7 +11,7 @@ public class NetworkObject : MonoBehaviour {
     public string id;
     public int ownerID;
     public State state;
-    public string type = "default";
+    public string type;
 
     NetworkObjectManager networkObjectManager;
 
@@ -37,6 +37,11 @@ public class NetworkObject : MonoBehaviour {
     void OnDestroy() {
         Debug.Log($"NetworkObject '{id}' destroyed.");
         networkObjectManager.RemoveObject(this);
+    }
+
+    public void SetID(string id) {
+        this.id = id;
+        UpdateName();
     }
 
     void UpdateName() {
