@@ -45,7 +45,7 @@ namespace UniversoAumentado.ARCraft.Network {
             }
             player = players[client.ID];
 
-            Debug.Log($"Received info {players.Count} for players.");
+            Debug.Log($"Received info for {players.Count} players.");
 
             // Player name was set before we had player info, set it officially now
             if (!string.IsNullOrEmpty(playerName)) {
