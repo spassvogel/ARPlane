@@ -61,10 +61,10 @@ public class NetworkObject : MonoBehaviour {
     }
 
     public void SetObjectState(ARPlaneServer.Classes.GameObject state) {
-        if (this.mode != Mode.LISTEN) return;
+        if (mode != Mode.LISTEN) return;
 
         transform.position = new UnityEngine.Vector3(state.position.x, state.position.y, state.position.z);
-        transform.rotation = Quaternion.Euler(state.position.x, state.position.y, state.position.z);
+        transform.rotation = Quaternion.Euler(state.rotation.x, state.rotation.y, state.rotation.z);
     }
 
     public void SetObjectInfo(ARPlaneServer.Classes.GameObject info) {
