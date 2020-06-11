@@ -44,7 +44,7 @@ namespace UniversoAumentado.ARCraft.Network {
             if(client.ConnectionState != ConnectionState.Connected) {
                 throw new Exception("Client not connected, cannot generate NetworkObject ID.");
             }
-            return $"{client.ID}-{nextID++}";
+            return $"{client.ID}:{nextID++}";
         }
 
         public void RegisterObject(NetworkObject networkObject) {
@@ -55,8 +55,9 @@ namespace UniversoAumentado.ARCraft.Network {
             if(client.ConnectionState != ConnectionState.Connected) {
                 return;
             }
-            if(string.IsNullOrEmpty(networkObject.id)) {
-                // NetworkObject may have registered before we were connected so this is the first time we can generate an ID.
+            // NetworkObject may have been created/registered before we were connected so this is the first time we can set ownerID and generate and object ID.
+            if (string.IsNullOrEmpty(networkObject.id) || networkObject.ownerID != client.ID) {
+                networkObject.SetOwnerID(client.ID);
                 networkObject.SetID(GetNextID());
             }
             SendMessage(Tag.ObjectUpdate, new ObjectUpdateEvent() {

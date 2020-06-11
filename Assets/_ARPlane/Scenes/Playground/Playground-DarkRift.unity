@@ -229,11 +229,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ea5e74a208f4044950c62541e87d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkObjectManager: {fileID: 0}
+  networkObjectManager: {fileID: 1359556981}
   id: 
   ownerID: 0
   state: 1
-  type: default
+  type: arcraft
 --- !u!95 &213374383
 Animator:
   serializedVersion: 3

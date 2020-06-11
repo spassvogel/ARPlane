@@ -39,6 +39,11 @@ public class NetworkObject : MonoBehaviour {
         UpdateName();
     }
 
+    public void SetOwnerID(int id) {
+        ownerID = id;
+        UpdateName();
+    }
+
     void UpdateName() {
         if(state == State.LISTEN) {
             transform.name = $"NetworkObject-{id}";
