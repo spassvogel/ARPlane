@@ -31,12 +31,12 @@ namespace UniversoAumentado.ARCraft.Network {
         }
 
         void HandleObjectUpdate(ObjectUpdateEvent updateEvent) {
-            NetworkObject networkObject = networkObjects[updateEvent.newState.id];
-            if (networkObject == null) {
+            NetworkObject networkObject;
+            if (networkObjects.ContainsKey(updateEvent.newState.id)) {
+                networkObject = networkObjects[updateEvent.newState.id];
+            } else {
                 networkObject = CreateObject(updateEvent);
             }
-            if (networkObject == null) return;
-
             networkObject.SetObjectState(updateEvent.newState);
         }
 
@@ -94,7 +94,7 @@ namespace UniversoAumentado.ARCraft.Network {
 
             // Set NetworkObject info and dependencies
             networkObject.SetObjectInfo(updateEvent.newState);
-            networkObject.state = NetworkObject.State.LISTEN;
+            networkObject.mode = NetworkObject.Mode.LISTEN;
             networkObject.networkObjectManager = this;
             
             RegisterObject(networkObject);

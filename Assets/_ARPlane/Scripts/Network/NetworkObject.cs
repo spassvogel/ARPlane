@@ -3,7 +3,7 @@ using UniversoAumentado.ARCraft.Network;
 
 public class NetworkObject : MonoBehaviour {
 
-    public enum State {
+    public enum Mode {
         LISTEN, BROADCAST
     }
 
@@ -11,7 +11,7 @@ public class NetworkObject : MonoBehaviour {
 
     public string id;
     public int ownerID;
-    public State state;
+    public Mode mode;
     public string type;
 
     void Start() {
@@ -24,7 +24,7 @@ public class NetworkObject : MonoBehaviour {
     }
 
     void Update() {
-        if(state == State.BROADCAST) {
+        if(mode == Mode.BROADCAST) {
             networkObjectManager.UpdateObject(this);
         }
     }
@@ -45,7 +45,7 @@ public class NetworkObject : MonoBehaviour {
     }
 
     void UpdateName() {
-        if(state == State.LISTEN) {
+        if(mode == Mode.LISTEN) {
             transform.name = $"NetworkObject-{id}";
         }
     }
@@ -61,7 +61,7 @@ public class NetworkObject : MonoBehaviour {
     }
 
     public void SetObjectState(ARPlaneServer.Classes.GameObject state) {
-        if (this.state != State.LISTEN) return;
+        if (this.mode != Mode.LISTEN) return;
 
         transform.position = new UnityEngine.Vector3(state.position.x, state.position.y, state.position.z);
         transform.rotation = Quaternion.Euler(state.position.x, state.position.y, state.position.z);
