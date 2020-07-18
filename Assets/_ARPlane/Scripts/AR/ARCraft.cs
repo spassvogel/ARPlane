@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UniversoAumentado.ARCraft.Debugging;
+using UniversoAumentado.ARCraft.Network;
 
 namespace UniversoAumentado.ARCraft.AR 
 {
@@ -158,6 +159,12 @@ namespace UniversoAumentado.ARCraft.AR
 
 			// Spawn the bomb slightly below the plane to avoid collision
 			bomb.transform.position = transform.position + new Vector3(0, -3, 0);
+
+			NetworkObject bombNetworkObject = bomb.GetComponent<NetworkObject>();
+			NetworkObject networkObject = GetComponent<NetworkObject>();
+			if (!bombNetworkObject || !networkObject) return;
+
+			bombNetworkObject.networkObjectManager = networkObject.networkObjectManager;
 		}
 
 		void DebugText(string name, string value) {
