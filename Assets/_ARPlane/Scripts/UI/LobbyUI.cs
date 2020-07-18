@@ -22,6 +22,7 @@ namespace UniversoAumentado.ARCraft.UI
 
         private static int port = 4296;
         private static string playerPrefipAddress = "ipAddress";
+        private static string playerPrefName = "name";
 
         private void Awake()
         {
@@ -34,6 +35,11 @@ namespace UniversoAumentado.ARCraft.UI
             var list = PlayerPrefsX.GetStringArray(playerPrefipAddress).ToList();            
             ipAddressDropdown.AddOptions(list);
             ipAddressText.text = list.FirstOrDefault();
+
+            if (!string.IsNullOrEmpty(PlayerPrefs.GetString(playerPrefName)))
+            {
+                nameText.text = PlayerPrefs.GetString(playerPrefName);
+            }
         }
 
         private void IPAddressSelected(int index)
@@ -70,6 +76,7 @@ namespace UniversoAumentado.ARCraft.UI
             list.Remove(ipAddressText.text);    // Remove if already somewhere in the list
             list.Insert(0, ipAddressText.text); // Add to top      
             PlayerPrefsX.SetStringArray(playerPrefipAddress, list.ToArray());
+            PlayerPrefs.SetString(playerPrefName, nameText.text);
         }
 
         private void SetName()
