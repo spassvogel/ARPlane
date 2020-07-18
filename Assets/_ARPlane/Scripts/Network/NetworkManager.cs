@@ -2,17 +2,26 @@
 using DarkRift;
 using DarkRift.Client;
 using DarkRift.Client.Unity;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UniversoAumentado.ARCraft.Events;
+using static UniversoAumentado.ARCraft.Game.GameController;
 
-namespace UniversoAumentado.ARCraft.Network {
+namespace UniversoAumentado.ARCraft.Network
+{
 
     public class NetworkManager : MonoBehaviour {
         [SerializeField] protected UnityClient client;
 
         protected virtual void Awake() {
             client.MessageReceived += MessageReceived;
+            client.Disconnected += Disconnected;
+        }
+
+        private void Disconnected(object sender, DisconnectedEventArgs e)
+        {
+            Debug.LogWarning("Disconnected from server, reason unknown");
+            var startState = GameStates.Lobby;
+            GlobalEventDispatcher.Instance.DispatchEvent(new GameStateChangeEvent(startState));
         }
 
         protected void MessageReceived(object sender, MessageReceivedEventArgs e) {
