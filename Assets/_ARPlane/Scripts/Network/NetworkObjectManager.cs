@@ -27,6 +27,21 @@ namespace UniversoAumentado.ARCraft.Network {
                     ObjectUpdateEvent objectUpdateEvent = reader.ReadSerializable<ObjectUpdateEvent>();
                     HandleObjectUpdate(objectUpdateEvent);
                     break;
+                case Tag.PlayerDisconnected:
+                    PlayerDisconnectedEvent playerDisconnectedEvent = reader.ReadSerializable<PlayerDisconnectedEvent>();
+                    HandlePlayerDisconnectedEvent(playerDisconnectedEvent);
+                    break;
+            }
+        }
+
+        void HandlePlayerDisconnectedEvent(PlayerDisconnectedEvent playerDisconnectedEvent) {
+            var playersObjects = networkObjects.Where(obj => obj.Value.ownerID == playerDisconnectedEvent.player.id).ToList();
+            Debug.Log($"NetworkObjectManager removing all {playersObjects.Count} NetworkObjects owned by disconnected player: {playerDisconnectedEvent.player.id}");
+
+            // Remove all NetworkObjects owned by the disconnected player
+            foreach (var entry in playersObjects) {
+                Destroy(entry.Value.gameObject);
+                RemoveObject(entry.Value);
             }
         }
 
