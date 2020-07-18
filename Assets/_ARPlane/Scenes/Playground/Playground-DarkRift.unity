@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427182, b: 0.5645241, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -215,7 +215,7 @@ MonoBehaviour:
   target: {fileID: 1494848800}
   cam: {fileID: 1164950284}
   bombPrefab: {fileID: 0}
-  debugTexts: {fileID: 888321495}
+  debugTexts: {fileID: 0}
   reverse: 0
 --- !u!114 &213374382
 MonoBehaviour:
@@ -451,18 +451,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &888321495 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6789902578593457833, guid: 6483492732e02490b8b89c3cfe46f499,
-    type: 3}
-  m_PrefabInstance: {fileID: 760314862805919391}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30115560a2fa41a488f73a709c2b36f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &947823532
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,8 +31,9 @@ namespace UniversoAumentado.ARCraft.UI
 
         private void Start()
         {
-            var list = PlayerPrefsX.GetStringArray(playerPrefipAddress).ToList();
+            var list = PlayerPrefsX.GetStringArray(playerPrefipAddress).ToList();            
             ipAddressDropdown.AddOptions(list);
+            ipAddressText.text = list.FirstOrDefault();
         }
 
         private void IPAddressSelected(int index)
