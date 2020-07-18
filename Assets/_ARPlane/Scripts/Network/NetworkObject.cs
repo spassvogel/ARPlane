@@ -13,7 +13,7 @@ public class NetworkObject : MonoBehaviour {
     public int ownerID;
     public Mode mode;
     public string type;
-    public float updatesPerSecond = 2f;
+    private float sendRate = 10f;
 
     private float lastUpdate = 0;
 
@@ -28,7 +28,7 @@ public class NetworkObject : MonoBehaviour {
 
     void Update() {
         // Throttle network updates
-        if (Time.time < lastUpdate + 1 / updatesPerSecond) return;
+        if (Time.time < lastUpdate + 1 / sendRate) return;
 
         lastUpdate = Time.time;
 
