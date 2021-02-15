@@ -6,12 +6,14 @@ using DarkRift.Client.Unity;
 using UnityEngine;
 using UnityEngine.UI;
 using UniversoAumentado.ARCraft.Events;
+using UniversoAumentado.ARCraft.Network;
 using UniversoAumentado.ARCraft.Utils;
 
 namespace UniversoAumentado.ARCraft.UI
 {
     public class LobbyUI : MonoBehaviour
     {
+        [SerializeField] private NetworkPlayerManager networkPlayerManager;
         [SerializeField] private Button joinButton;
         [SerializeField] private TMPro.TMP_InputField ipAddressText;
         [SerializeField] private TMPro.TMP_Dropdown ipAddressDropdown;
@@ -20,6 +22,7 @@ namespace UniversoAumentado.ARCraft.UI
 
         private static int port = 4296;
         private static string playerPrefipAddress = "ipAddress";
+        private static string playerPrefName = "name";
 
         private void Awake()
         {
@@ -29,8 +32,14 @@ namespace UniversoAumentado.ARCraft.UI
 
         private void Start()
         {
-            var list = PlayerPrefsX.GetStringArray(playerPrefipAddress).ToList();
+            var list = PlayerPrefsX.GetStringArray(playerPrefipAddress).ToList();            
             ipAddressDropdown.AddOptions(list);
+            ipAddressText.text = list.FirstOrDefault();
+
+            if (!string.IsNullOrEmpty(PlayerPrefs.GetString(playerPrefName)))
+            {
+                nameText.text = PlayerPrefs.GetString(playerPrefName);
+            }
         }
 
         private void IPAddressSelected(int index)
@@ -67,21 +76,12 @@ namespace UniversoAumentado.ARCraft.UI
             list.Remove(ipAddressText.text);    // Remove if already somewhere in the list
             list.Insert(0, ipAddressText.text); // Add to top      
             PlayerPrefsX.SetStringArray(playerPrefipAddress, list.ToArray());
+            PlayerPrefs.SetString(playerPrefName, nameText.text);
         }
 
         private void SetName()
         {
-            // Now we're connected, let's inform the server our name
-            string name = nameText.text;
-            using (DarkRiftWriter writer = DarkRiftWriter.Create())
-            {
-                writer.Write(name);
-
-                using (Message message = Message.Create((int)MessageTag.UpdateName, writer))
-                {
-                    client.SendMessage(message, SendMode.Reliable);
-                }
-            }
+            networkPlayerManager.SetPlayerName(nameText.text);
         }
     }
 }

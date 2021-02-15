@@ -1,0 +1,120 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using ARPlaneServer.Events;
+using DarkRift;
+using UnityEngine;
+
+namespace UniversoAumentado.ARCraft.Network {
+
+    public class NetworkObjectManager : NetworkManager {
+
+        static int nextID = 0;
+
+        [Serializable]
+        public class NetworkPrefab {
+            public string type;
+            public GameObject prefab;
+        }
+
+        [SerializeField] private NetworkPrefab[] prefabs;
+
+        readonly Dictionary<string, NetworkObject> networkObjects = new Dictionary<string, NetworkObject>();
+
+        protected override void MessageReceived(Message message, DarkRiftReader reader) {
+            switch ((Tag)message.Tag) {
+                case Tag.ObjectUpdate:
+                    ObjectUpdateEvent objectUpdateEvent = reader.ReadSerializable<ObjectUpdateEvent>();
+                    HandleObjectUpdate(objectUpdateEvent);
+                    break;
+                case Tag.PlayerDisconnected:
+                    PlayerDisconnectedEvent playerDisconnectedEvent = reader.ReadSerializable<PlayerDisconnectedEvent>();
+                    HandlePlayerDisconnectedEvent(playerDisconnectedEvent);
+                    break;
+            }
+        }
+
+        void HandlePlayerDisconnectedEvent(PlayerDisconnectedEvent playerDisconnectedEvent) {
+            var playersObjects = networkObjects.Where(obj => obj.Value.ownerID == playerDisconnectedEvent.player.id).ToList();
+            Debug.Log($"NetworkObjectManager removing all {playersObjects.Count} NetworkObjects owned by disconnected player: {playerDisconnectedEvent.player.id}");
+
+            // Remove all NetworkObjects owned by the disconnected player
+            foreach (var entry in playersObjects) {
+                Destroy(entry.Value.gameObject);
+                RemoveObject(entry.Value);
+            }
+        }
+
+        void HandleObjectUpdate(ObjectUpdateEvent updateEvent) {
+            NetworkObject networkObject;
+            if (networkObjects.ContainsKey(updateEvent.newState.id)) {
+                networkObject = networkObjects[updateEvent.newState.id];
+            } else {
+                networkObject = CreateObject(updateEvent);
+            }
+            networkObject.SetObjectState(updateEvent.newState);
+        }
+
+        string GetNextID() {
+            if(client.ConnectionState != ConnectionState.Connected) {
+                throw new Exception("Client not connected, cannot generate NetworkObject ID.");
+            }
+            return $"{client.ID}:{nextID++}";
+        }
+
+        public void RegisterObject(NetworkObject networkObject) {
+            networkObjects[networkObject.id] = networkObject;
+        }
+
+        public void UpdateObject(NetworkObject networkObject) {
+            if(client.ConnectionState != ConnectionState.Connected) {
+                return;
+            }
+            // NetworkObject may have been created/registered before we were connected so this is the first time we can set ownerID and generate and object ID.
+            if (string.IsNullOrEmpty(networkObject.id) || networkObject.ownerID != client.ID) {
+                networkObject.SetOwnerID(client.ID);
+                networkObject.SetID(GetNextID());
+            }
+            SendMessage(Tag.ObjectUpdate, new ObjectUpdateEvent() {
+                newState = networkObject.GetNetworkObject()
+            });
+        }
+
+        public void RemoveObject(NetworkObject networkObject) {
+            networkObjects.Remove(networkObject.id);
+        }
+
+        NetworkObject CreateObject(ObjectUpdateEvent updateEvent) {
+            NetworkPrefab networkPrefab = prefabs.First(prefab => prefab.type == updateEvent.newState.type);
+            
+            NetworkObject networkObject;
+            
+            if(networkPrefab == null) {
+                Debug.LogError($"No NetworkPrefab set for type {updateEvent.newState.type}.");
+
+                // Create a simple game object to at least have something following the networkobject
+                GameObject go = new GameObject("NetworkObject", typeof(NetworkObject));
+                go.transform.SetParent(transform);
+                networkObject = go.GetComponent<NetworkObject>();
+            } else {
+                // Instantiate prefab
+                GameObject go = Instantiate(networkPrefab.prefab, transform);
+
+                // Make sure spawned object has a NetworkObject component
+                networkObject = go.GetComponent<NetworkObject>();
+                if(networkObject == null) {
+                    networkObject = go.AddComponent<NetworkObject>();
+                }
+            }
+
+            // Set NetworkObject info and dependencies
+            networkObject.SetObjectInfo(updateEvent.newState);
+            networkObject.mode = NetworkObject.Mode.LISTEN;
+            networkObject.networkObjectManager = this;
+            
+            RegisterObject(networkObject);
+
+            return networkObject;
+        }
+    }
+}
